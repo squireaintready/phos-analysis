@@ -55,7 +55,14 @@ html = f"""<!DOCTYPE html><html><head>
 <script src="https://cdn.jsdelivr.net/npm/luckysheet@2.1.13/dist/luckysheet.umd.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/luckyexcel@1.0.1/dist/luckyexcel.umd.js"></script>
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 *{{margin:0;padding:0;box-sizing:border-box}}
+/* Map Aptos Narrow to Inter (closest web-safe match) */
+@font-face{{font-family:'Aptos Narrow';src:local('Aptos Narrow'),local('Inter');}}
+table.luckysheet-cell-flow,
+.luckysheet-cell-input,
+.luckysheet-input-box,
+#luckysheet {{font-family:'Aptos Narrow','Inter',Calibri,'Segoe UI',Helvetica,Arial,sans-serif!important}}
 html,body{{height:100vh;width:100%;overflow:hidden;background:#fff;touch-action:manipulation;margin:0;padding:0}}
 #luckysheet{{position:fixed;top:0;left:0;right:0;bottom:0;width:100vw;height:100vh}}
 
