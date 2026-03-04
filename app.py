@@ -451,24 +451,24 @@ TAB_CONFIG = [
     ("Claude Log", "terminal"),
 ]
 
-# --- Header ---
-st.markdown("""
-<div class="main-header">
-    <div>
-        <h1>First Phosphate Corp.</h1>
-        <div class="subtitle">CSE: PHOS | OTCQX: FRSPF | Pre-Revenue LFP Battery Phosphate Developer</div>
+# --- Header with toggle ---
+h_left, h_right = st.columns([4, 1])
+with h_left:
+    st.markdown("""
+    <div class="main-header">
+        <div>
+            <h1>First Phosphate Corp.</h1>
+            <div class="subtitle">CSE: PHOS | OTCQX: FRSPF | Pre-Revenue LFP Battery Phosphate Developer</div>
+        </div>
     </div>
-</div>
-""", unsafe_allow_html=True)
+    """, unsafe_allow_html=True)
+with h_right:
+    st.markdown("<div style='padding-top:12px'></div>", unsafe_allow_html=True)
+    view_mode = st.toggle("Dashboard View", value=False)
 
 # --- Navigation tabs ---
 tab_labels = [name for name, _ in TAB_CONFIG]
 selected_tab = st.radio("", tab_labels, horizontal=True, label_visibility="collapsed")
-
-# --- View toggle ---
-col_spacer, col_toggle = st.columns([4, 1])
-with col_toggle:
-    view_mode = st.toggle("Dashboard View", value=False)
 
 st.markdown("---")
 
