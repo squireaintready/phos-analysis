@@ -21,15 +21,15 @@ st.markdown("""
     div[data-testid="stStatusWidget"], section[data-testid="stSidebar"],
     .stApp > header { display: none !important; }
     .block-container { padding: 0 !important; max-width: 100% !important; margin: 0 !important; }
-    .stApp { overflow: hidden !important; background: #fff !important; }
+    .stApp { overflow: hidden !important; background: #fff !important; height: 100vh !important; }
+    html, body { overflow: hidden !important; height: 100vh !important; margin: 0 !important; padding: 0 !important; }
     .element-container { margin: 0 !important; padding: 0 !important; }
-    iframe { border: none !important; width: 100% !important; height: 100vh !important; }
-    /* Kill any bottom gap */
+    iframe { border: none !important; width: 100% !important; height: 100vh !important; overflow: hidden !important; }
     .stApp > div:first-child { height: 100vh !important; overflow: hidden !important; }
-    div[data-testid="stVerticalBlockBorderWrapper"] { height: 100vh !important; }
-    /* Hide Streamlit manage app footer */
-    .viewerBadge_container__r5tak, .stStatusWidget, 
-    div[class*="manage"], footer { display: none !important; }
+    div[data-testid="stVerticalBlockBorderWrapper"] { height: 100vh !important; overflow: hidden !important; }
+    div[data-testid="stMainBlockContainer"] { overflow: hidden !important; height: 100vh !important; padding: 0 !important; }
+    section.main { overflow: hidden !important; }
+    .viewerBadge_container__r5tak, .stStatusWidget, footer { display: none !important; }
 </style>
 """, unsafe_allow_html=True)
 
