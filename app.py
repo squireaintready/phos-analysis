@@ -132,8 +132,8 @@ LuckyExcel.transformExcelToLucky(blob,function(ej){{
         loadUrl:'',
         plugins:['chart'],
     }});
-    // Force all cell font sizes to 12pt — LuckyExcel corrupts sizes on import
-    // Only exception: row 1 title gets 14pt
+    // Normalize font sizes — base 11pt, preserve 9/10 where intentional in xlsx
+    // Map: 14+ → 13 (title), 12 → 11 (data), 11 → 11, 10 → 10, 9 → 9, missing → 11
     ej.sheets.forEach(function(sheet) {{
         if (sheet.data) {{
             for (var r = 0; r < sheet.data.length; r++) {{
@@ -141,11 +141,11 @@ LuckyExcel.transformExcelToLucky(blob,function(ej){{
                 for (var c = 0; c < sheet.data[r].length; c++) {{
                     var cell = sheet.data[r][c];
                     if (cell && typeof cell === 'object') {{
-                        if (r === 0) {{
-                            cell.fs = 14;
-                        }} else {{
-                            cell.fs = 12;
+                        var fs = cell.fs;
+                        if (!fs || fs >= 12) {{
+                            cell.fs = (r === 0) ? 13 : 11;
                         }}
+                        // 9 and 10 stay as-is (intentional smaller text)
                     }}
                 }}
             }}
