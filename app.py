@@ -91,12 +91,50 @@ html,body{{height:100vh;width:100%;overflow:hidden;background:#fff;touch-action:
 .luckysheet-modal-dialog-title-text{{color:#222!important}}
 .luckysheet-grid-window-1{{background:#fff!important}}
 table.luckysheet-cell-flow{{color:#222!important}}
+/* Mobile: Excel Mobile feel */
 @media(max-width:768px){{
-    .luckysheet-toolbar{{overflow-x:auto!important;white-space:nowrap!important;-webkit-overflow-scrolling:touch}}
-    .luckysheet-toolbar-button{{padding:2px 3px!important;min-width:24px!important}}
-    .luckysheet-name-box{{width:50px!important;font-size:11px!important}}
-    .luckysheet-wa-functionbox{{font-size:12px!important}}
-    .luckysheet-sheets-item{{padding:4px 8px!important;font-size:11px!important}}
+    /* Compact toolbar — single row, scrollable */
+    .luckysheet-toolbar{{overflow-x:auto!important;white-space:nowrap!important;-webkit-overflow-scrolling:touch;height:36px!important;min-height:36px!important}}
+    .luckysheet-toolbar-button{{padding:2px 4px!important;min-width:28px!important;height:28px!important}}
+    .luckysheet-toolbar-combo-button{{height:28px!important}}
+    
+    /* Compact name box + formula bar */
+    .luckysheet-name-box{{width:45px!important;font-size:11px!important;height:24px!important}}
+    .luckysheet-wa-functionbox{{font-size:11px!important;height:28px!important}}
+    .luckysheet-input-box{{font-size:11px!important}}
+    
+    /* Sheet tabs — compact, scrollable */
+    .luckysheet-sheets-item{{padding:3px 6px!important;font-size:10px!important;max-width:100px!important;overflow:hidden!important;text-overflow:ellipsis!important;white-space:nowrap!important}}
+    .luckysheet-sheet-area{{height:26px!important}}
+    
+    /* Column/row headers smaller */
+    .luckysheet-cols-h-cells{{font-size:10px!important}}
+    .luckysheet-rows-h{{font-size:10px!important;width:30px!important}}
+    
+    /* Status bar compact */
+    .luckysheet-stat-area{{height:22px!important;font-size:10px!important}}
+    
+    /* Grid cells — tighter padding for more data visible */
+    .luckysheet-cell-flow{{font-size:10px!important}}
+    
+    /* Hide less-used toolbar items on mobile */
+    .luckysheet-toolbar-button[data-tips="Merge cells"],
+    .luckysheet-toolbar-button[data-tips="Chart"],
+    .luckysheet-toolbar-button[data-tips="Screenshot"],
+    .luckysheet-toolbar-button[data-tips="Comment"],
+    .luckysheet-toolbar-button[data-tips="Pivot table"]{{display:none!important}}
+}}
+
+/* Small phones */
+@media(max-width:480px){{
+    .luckysheet-toolbar{{height:32px!important}}
+    .luckysheet-toolbar-button{{padding:1px 2px!important;min-width:24px!important;height:24px!important}}
+    .luckysheet-name-box{{width:35px!important;font-size:10px!important}}
+    .luckysheet-sheets-item{{padding:2px 5px!important;font-size:9px!important;max-width:75px!important}}
+    .luckysheet-wa-functionbox{{height:24px!important;font-size:10px!important}}
+    .luckysheet-cols-h-cells{{font-size:9px!important}}
+    .luckysheet-rows-h{{width:24px!important;font-size:9px!important}}
+    .luckysheet-cell-flow{{font-size:9px!important}}
 }}
 </style>
 </head><body>
