@@ -20,25 +20,46 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# --- CSS ---
+# --- CSS (mobile-optimized) ---
 st.markdown("""
 <style>
-    .block-container { padding-top: 0.5rem; padding-bottom: 0; max-width: 100%; }
+    .block-container { padding-top: 0.5rem; padding-bottom: 0; max-width: 100%; padding-left: 1rem; padding-right: 1rem; }
     .main-header {
         display: flex; align-items: center; justify-content: space-between;
         padding: 8px 0; border-bottom: 1px solid #333; margin-bottom: 4px;
     }
     .main-header h1 { margin: 0; font-size: 20px; font-weight: 700; }
     .main-header .subtitle { color: #888; font-size: 12px; margin-top: 2px; }
-    .metric-row { display: flex; gap: 12px; margin: 16px 0; flex-wrap: wrap; }
+    .metric-row { display: flex; gap: 8px; margin: 12px 0; flex-wrap: wrap; }
     .metric-card {
-        flex: 1; min-width: 140px; background: #1a1a2e;
-        border: 1px solid #0f3460; border-radius: 8px; padding: 16px;
+        flex: 1 1 calc(50% - 8px); min-width: 120px; background: #1a1a2e;
+        border: 1px solid #0f3460; border-radius: 8px; padding: 12px;
     }
-    .metric-card .label { font-size: 12px; color: #888; margin-bottom: 4px; }
-    .metric-card .value { font-size: 22px; font-weight: 700; color: #e94560; }
-    .metric-card .delta { font-size: 12px; color: #888; margin-top: 2px; }
+    .metric-card .label { font-size: 11px; color: #888; margin-bottom: 2px; }
+    .metric-card .value { font-size: 18px; font-weight: 700; color: #e94560; }
+    .metric-card .delta { font-size: 11px; color: #888; margin-top: 2px; }
     iframe { border: none !important; }
+    
+    /* Mobile overrides */
+    @media (max-width: 768px) {
+        .block-container { padding-left: 0.5rem; padding-right: 0.5rem; }
+        .main-header h1 { font-size: 16px; }
+        .main-header .subtitle { font-size: 10px; }
+        .metric-card { flex: 1 1 calc(50% - 6px); min-width: 100px; padding: 10px; }
+        .metric-card .value { font-size: 16px; }
+        .metric-card .label, .metric-card .delta { font-size: 10px; }
+        /* Horizontal scroll for radio tabs */
+        div[data-testid="stHorizontalBlock"] { overflow-x: auto; flex-wrap: nowrap !important; }
+        div[role="radiogroup"] { flex-wrap: nowrap !important; overflow-x: auto; gap: 0 !important; }
+        div[role="radiogroup"] label { font-size: 11px !important; padding: 4px 8px !important; white-space: nowrap; }
+        /* Plotly charts responsive */
+        .js-plotly-plot { width: 100% !important; }
+    }
+    @media (max-width: 480px) {
+        .main-header h1 { font-size: 14px; }
+        .metric-card { flex: 1 1 100%; }
+        .metric-card .value { font-size: 20px; }
+    }
 </style>
 """, unsafe_allow_html=True)
 
@@ -61,6 +82,7 @@ def render_luckysheet(sheet_index=0):
     <html>
     <head>
         <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/luckysheet@2.1.13/dist/plugins/css/pluginsCss.css"/>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/luckysheet@2.1.13/dist/plugins/plugins.css"/>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/luckysheet@2.1.13/dist/css/luckysheet.css"/>
@@ -72,6 +94,13 @@ def render_luckysheet(sheet_index=0):
             * {{ margin: 0; padding: 0; box-sizing: border-box; }}
             html, body {{ height: 100%; overflow: hidden; background: #1a1a2e; }}
             #luckysheet {{ width: 100%; height: 100%; }}
+            /* Responsive */
+            @media (max-width: 768px) {{
+                .luckysheet-toolbar {{ font-size: 11px !important; overflow-x: auto !important; }}
+                .luckysheet-toolbar-button {{ padding: 2px 4px !important; }}
+                .luckysheet-wa-functionbox {{ font-size: 12px !important; }}
+                .luckysheet-name-box {{ width: 60px !important; font-size: 11px !important; }}
+            }}
             /* Dark theme overrides */
             .luckysheet-wa-editor {{ background: #0e1117 !important; }}
             .luckysheet-grid-window {{ background: #0e1117 !important; }}
@@ -142,7 +171,7 @@ def render_luckysheet(sheet_index=0):
     </body>
     </html>
     """
-    components.html(html, height=750, scrolling=False)
+    components.html(html, height=700, scrolling=True)
 
 
 # ============================================================
