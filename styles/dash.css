@@ -463,3 +463,6 @@ h1, h2, h3 { letter-spacing: -0.02em; }
 .chart-host { min-height: 180px; }
 .chart-host--donut { min-height: 216px; }
 .section { padding-block: clamp(2.2rem, 5vw, 4rem); }
+
+/* donut: render at intrinsic size with the legend beside it (not stretched full-width) */
+.chart--donut .chart-svg { width: auto; height: auto; max-width: 100%; flex: 0 0 auto; }

@@ -337,8 +337,8 @@ export function donut(host, cfg) {
     const size = Math.min(W, 216);
     const cx = size / 2, cy = size / 2, R = size / 2 - 6, r = R * 0.62;
     const total = cfg.slices.reduce((a, s) => a + s.value, 0);
-    const cols = [p.brand, p.accent, p.up, p.gridStrong, cssvar("--proj", host),
-      cssvar("--text-mute", host), cssvar("--down", host), cssvar("--border-strong", host)];
+    // Fixed categorical palette — distinct on both light and dark, no faint greys.
+    const cols = ["#0c8577", "#3aa893", "#5fc3ac", "#2a7d8c", "#5d7fa0", "#c89a4d", "#bb5742", "#94a1a9"];
     const svg = el("svg", { viewBox: `0 0 ${size} ${size}`, width: size, height: size, class: "chart-svg" });
     let a0 = -Math.PI / 2;
     cfg.slices.forEach((s, i) => {

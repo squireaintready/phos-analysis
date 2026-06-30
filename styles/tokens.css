@@ -96,13 +96,13 @@
   --glass: color-mix(in srgb, var(--bg) 78%, transparent);  /* nav / palette backdrop */
   --live: var(--up);                                        /* live pulse dot */
 
-  /* ---- Color: LIGHT (cool white · slate ink · deep-teal chrome · emerald data) ---- */
-  --bg: #ffffff;
-  --bg-tint: #f6f8f9;
+  /* ---- Color: LIGHT (cool off-white · white cards lift · slate ink · emerald data) ---- */
+  --bg: #f7f9fb;
+  --bg-tint: #eef3f6;
   --surface: #ffffff;
-  --surface-2: #f2f5f6;
-  --border: #e3e8eb;
-  --border-strong: #ccd4d8;
+  --surface-2: #e9eef2;
+  --border: #e1e7ec;
+  --border-strong: #cad3da;
   --rule: #11181c;
   --text: #11181c;
   --text-dim: #49555c;
