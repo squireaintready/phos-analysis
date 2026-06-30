@@ -46,10 +46,11 @@ function renderCoverage() {
   $("#cov-assess").textContent = c.assessment.split(" — ")[0];
   $("#cov-stats").innerHTML = c.stats.map((s) => `<div><dt>${escapeHTML(s.k)}</dt><dd>${escapeHTML(s.v)}</dd></div>`).join("");
   // fair-value bar: range lo..hi within a 0..max domain, with a "now" marker
-  const lo = c.fairValueLow, hi = c.fairValueHigh, max = 2.0;
+  const lo = c.fairValueLow, hi = c.fairValueHigh;
   const fvbar = $("#cov-fvbar");
   const set = () => {
     const now = state.price;
+    const max = Math.max(hi, now) * 1.08;   // keep the live "now" marker on-scale even above the band
     const px = (v) => Math.max(0, Math.min(100, (v / max) * 100));
     fvbar.innerHTML = `
       <span class="fvbar__range" style="left:${px(lo)}%;right:${100 - px(hi)}%"></span>
@@ -208,11 +209,13 @@ function renderPeerTable() {
 
 function renderFootballField() {
   const ff = DATA.comps.footballField;
-  C.rangeBars($("#football-field"), {
+  const cfg = {
     rows: ff.map((r) => ({ label: r.method, low: r.low, high: r.high, mid: r.mid, upside: r.upside })),
     domainMin: 0, domainMax: 3.4, ref: state.price, valueFormat: (v) => "C$" + v.toFixed(2),
     label: "Fair-value ranges by valuation method, against the current price.",
-  });
+  };
+  const run = C.rangeBars($("#football-field"), cfg);
+  renderFootballField._relive = () => { cfg.ref = state.price; run(); };  // move the "today" line when the live quote lands
 }
 
 function renderValuation() {
@@ -233,6 +236,7 @@ function renderValuation() {
   function update() {
     const p = (+slider.value) / 100, pr = priceAt(p), up = pr / state.price - 1;
     out.textContent = Math.round(p * 100) + "%";
+    slider.setAttribute("aria-valuetext", `${Math.round(p * 100)}% of PEA NAV → ${price(pr)}`);
     priceEl.textContent = price(pr);
     deltaEl.textContent = (up >= 0 ? "▲ +" : "▼ ") + pct(Math.abs(up), 0) + " vs. " + price(state.price) + (state.live ? " (live)" : " today");
     deltaEl.className = "val-readout__delta " + (up >= 0 ? "is-up" : "is-down");
@@ -333,20 +337,24 @@ function applyLivePrice(q) {
   chg.textContent = `${sign}${Math.abs(q.change).toFixed(2)} (${sign}${Math.abs(q.changePct).toFixed(1)}%) · 15-min delayed`;
   chg.className = "coverage__price-chg " + (q.change >= 0 ? "is-up" : "is-down");
   $("#val-current").textContent = price(q.price) + " (live)";
-  // ripple: market-cap & NAV KPIs, fair-value bar, valuation model
-  const mc = q.price * DATA.capital.sharesCurrent;
+  // ripple: market-cap & NAV KPIs, fair-value bar, valuation model.
+  // Use the same Q3 basic share count as the static C$158M baseline so the KPI
+  // moves only with price, not with a share-count switch on go-live.
+  const mc = q.price * DATA.capital.sharesBasic;
   $("#kpi-mktcap").innerHTML = cad(mc);
-  $("#kpi-mktcap-note").innerHTML = `live · ${price(q.price)} × ~${(DATA.capital.sharesCurrent / 1e6).toFixed(0)}M sh`;
+  $("#kpi-mktcap-note").innerHTML = `live · ${price(q.price)} × ${(DATA.capital.sharesBasic / 1e6).toFixed(1)}M sh (Q3)`;
   $("#kpi-nav").innerHTML = pct(mc / DATA.valuation.npv, 0);
   const fvbar = $("#cov-fvbar"); if (fvbar && fvbar._set) fvbar._set();
   if (renderValuation._relive) renderValuation._relive();
+  if (renderFootballField._relive) renderFootballField._relive();
 }
 async function fetchQuote() {
   try {
     const r = await fetch("/api/quote", { headers: { accept: "application/json" } });
     if (!r.ok) return;
     const q = await r.json();
-    if (q && typeof q.price === "number" && q.price > 0) applyLivePrice(q);
+    // Only apply CAD quotes — never render a non-CAD price under a "C$" label.
+    if (q && typeof q.price === "number" && q.price > 0 && (!q.currency || q.currency === "CAD")) applyLivePrice(q);
   } catch (e) { /* static values stand */ }
 }
 
