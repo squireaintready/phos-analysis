@@ -44,12 +44,18 @@ const kvHTML = (rows) => rows.map((r) => `<div class="kv"><dt>${escapeHTML(r.k)}
 function renderCoverage() {
   const c = DATA.coverage;
   $("#cov-assess").textContent = c.assessment.split(" — ")[0];
-  $("#cov-stats").innerHTML = c.stats.map((s) => `<div><dt>${escapeHTML(s.k)}</dt><dd>${escapeHTML(s.v)}</dd></div>`).join("");
+  $("#cov-stats").innerHTML = c.stats.map((s) => `<div data-k="${escapeHTML(s.k)}"><dt>${escapeHTML(s.k)}</dt><dd>${escapeHTML(s.v)}</dd></div>`).join("");
   // fair-value bar: range lo..hi within a 0..max domain, with a "now" marker
   const lo = c.fairValueLow, hi = c.fairValueHigh;
   const fvbar = $("#cov-fvbar");
   const set = () => {
     const now = state.price;
+    // once live, re-derive the price-dependent coverage stats so the box is self-consistent
+    if (state.live) {
+      const mc = now * DATA.capital.sharesBasic;
+      const mcDd = $('#cov-stats [data-k="Mkt cap"] dd'); if (mcDd) mcDd.textContent = cad(mc);
+      const navDd = $('#cov-stats [data-k="Mkt cap / NAV"] dd'); if (navDd) navDd.textContent = pct(mc / DATA.valuation.npv, 0);
+    }
     const max = Math.max(hi, now) * 1.08;   // keep the live "now" marker on-scale even above the band
     const px = (v) => Math.max(0, Math.min(100, (v / max) * 100));
     fvbar.innerHTML = `
