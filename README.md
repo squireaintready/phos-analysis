@@ -1,64 +1,63 @@
-# First Phosphate (CSE: PHOS) — Equity Research Dashboard
+# First Phosphate (CSE: PHOS) — Equity Research
 
-An interactive, static equity-research dashboard for **First Phosphate Corp. (CSE: PHOS · OTCQX: FRSPF · FSE: KD0)** — a pre-revenue LFP-battery phosphate developer in Saguenay, Québec.
+A comprehensive, interactive equity-research report on **First Phosphate Corp. (CSE: PHOS · OTCQX: FRSPF · FSE: KD0)** — a pre-revenue LFP-battery phosphate developer in Saguenay, Québec.
 
 🔗 **Live:** [phos-analysis.vercel.app](https://phos-analysis.vercel.app)
 
-It reads the story straight from the filings: the balance sheet, the cash burn and runway, the peer group, an interactive NAV valuation model, governance, and risk — every figure traced to SEDAR+ filings.
+Built as a zero-build static site with one serverless function for the live quote. Every fundamental traces to SEDAR+ filings; the headline price is live.
 
 ## What's inside
 
-| Section | What it shows |
-|---|---|
-| **Snapshot** | Market cap, cash, runway, Mkt-cap/NAV, net loss, dilution — at a glance |
-| **Thesis** | The bull / base / bear cases on the LFP premium |
-| **Financials** | Balance-sheet growth, quarterly net loss, FY2025 opex mix, key ratios |
-| **Cash & runway** | Cash balance over eight quarters, runway scenarios, the C$994M capex gap, dilution |
-| **Peers** | Mkt-cap/NAV and IRR vs. the Québec LFP cluster (DAN, NMG, PMET, LCE) |
-| **Valuation** | An **interactive** NAV-discount slider → implied share price vs. today |
-| **Management** | Insider buying, 100%-equity compensation, a governance scorecard |
-| **Risk & catalysts** | A severity × probability matrix and a catalyst timeline |
+A full initiating-coverage-style note, not a sample dashboard:
+
+| # | Section | |
+|---|---|---|
+| — | **Masthead** | Coverage summary box · live price · fair-value football field |
+| 01 | **Snapshot** | KPIs (market cap & NAV multiple update from the live price) |
+| 02 | **Thesis** | Bull / base / bear on the LFP premium |
+| 03 | **Company & project** | Bégin-Lamarche PEA economics, resource confidence, mine-to-battery value chain |
+| 04 | **Market & industry** | LFP market sizing, demand drivers, China concentration, critical-mineral policy |
+| 05 | **Supply chain** | Where PHOS sits in the Québec battery-materials cluster |
+| 06 | **Financials** | Balance sheet, net loss, opex mix, key ratios |
+| 07 | **Cash & capital** | Runway scenarios, the C$994M capex gap, dilution, cap table, financing |
+| 08 | **Valuation** | Peer comps, a multi-method fair-value range, and an **interactive NAV model** |
+| 09 | **Management** | Insider buying, governance scorecard, the advisory bench |
+| 10 | **ESG** | Permitting, Indigenous partnership, social licence |
+| 11 | **Roadmap** | Stage gates to production + catalyst timeline |
+| 12 | **Risk** | Severity × probability matrix + monitoring checklist |
+| 13 | **Bottom line** + reference | Conclusion, glossary, sources, data vintage |
 
 ## Stack
 
-Deliberately **zero-build and dependency-free** — no framework, no CDN, no bundler:
+Deliberately **zero-build** — no framework, no bundler, no chart CDN:
 
-- **HTML + CSS** — a small editorial design system (`tokens.css` / `base.css`) shared with [samjo.me](https://samjo.me), plus `dash.css`
-- **Vanilla ES modules** — `charts.js` is a hand-rolled SVG chart toolkit (line/area, bars, ranked bars, donut, an interactive sensitivity curve) that re-themes live and re-flows on resize
-- **[Pretext](https://github.com/chenglou/pretext)** — measures and sizes the display type to its column, live in the browser
-- **Five themes**, a ⌘K command palette, full SEO + Open Graph, and accessible-by-default markup (semantic tables, `role="img"` charts, reduced-motion, keyboard nav)
+- **HTML + CSS** — a small token-driven design system (`tokens.css` / `base.css`) shared with [samjo.me](https://samjo.me), restyled here into a cool-white "research terminal" via `dash.css` (Inter display, serif body, tabular-mono data). Five themes; white is default.
+- **Vanilla ES modules** — `charts.js` is a hand-rolled SVG chart toolkit (line/area, bars, ranked bars, donut, football-field range bars, an interactive sensitivity curve) that re-themes live and re-flows on resize.
+- **One serverless function** — `api/quote.js` proxies the live share price.
+- Full SEO + Open Graph, ⌘K command palette, and accessible-by-default markup (semantic tables, `role="img"` charts, reduced-motion, keyboard nav).
 
-The financial data lives in [`data.xlsx`](./data.xlsx) (the verified model) and is extracted at build time into a committed `scripts/data.js` — so the page and the model can never drift.
+## Live data vs. point-in-time data
 
-## Data & method
+- **Live (every load):** share price → market cap → Mkt-cap/NAV → the valuation reference line, via `/api/quote` (a Vercel function that reads Yahoo Finance server-side — **no API key**). If the feed is unavailable it falls back to the filing-dated figure and labels it as such.
+- **Point-in-time (versioned):** every fundamental is extracted from [`data.xlsx`](./data.xlsx) into a committed `scripts/data.js` at build time, so the page and the model can never drift. A [CI check](./.github/workflows/data-check.yml) enforces that on every push.
 
-All figures are sourced from official **SEDAR+ filings**:
+This is the industry-standard posture for research: the headline quote is current; the analysis is a dated, reproducible snapshot. To refresh fundamentals for a new quarter: drop the new SEDAR+ figures into `data.xlsx`, run the extractor, and push.
 
-- FY2024 & FY2025 audited annual financial statements
-- Q1–Q3 FY2026 interim financial statements
-- Management Discussion & Analysis (Q1–Q3 FY2026)
-- Peer and market data from public sources (Mar 2026)
+## Data sources
 
-[**Download the model →**](./data/phos-financial-model.xlsx)
+Official **SEDAR+ filings** — FY2024 & FY2025 audited annuals, Q1–Q3 FY2026 interims and MDAs — plus public peer/market data (Mar 2026). [**Download the model →**](./data/phos-financial-model.xlsx)
 
 ## Develop
 
-No build step. Serve the folder and open it:
-
 ```bash
-python3 -m http.server 8000      # → http://localhost:8000
-```
-
-Regenerate the data module after editing `data.xlsx`:
-
-```bash
+python3 -m http.server 8000              # → http://localhost:8000 (live quote needs Vercel)
 pip install -r build/requirements.txt
-python3 build/extract.py          # → writes scripts/data.js
+python3 build/extract.py                 # regenerate scripts/data.js from data.xlsx
 ```
 
 ## Deploy
 
-Static site on **Vercel** (Framework = Other, no build command). `vercel.json` sets clean URLs, cache headers, and security headers. Any static host works equally well.
+Static site + one function on **Vercel** (Framework = Other, no build). `vercel.json` sets clean URLs, security headers, and cache policy (revalidate CSS/JS, immutable fonts).
 
 ## Disclaimer
 
