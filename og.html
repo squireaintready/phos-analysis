@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <title>OG — PHOS</title>
+  <link rel="stylesheet" href="/styles/tokens.css" />
+  <link rel="stylesheet" href="/styles/base.css" />
+  <style>
+    html, body { margin: 0; }
+    .og { width: 1200px; height: 630px; background: var(--bg); position: relative; overflow: hidden; padding: 56px 76px; display: flex; flex-direction: column; justify-content: space-between; }
+    .og::before { content: ""; position: absolute; inset: 0; background:
+      radial-gradient(1100px 520px at 88% -10%, var(--accent-tint), transparent 60%); }
+    .og::after { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 10px; background: var(--proj); }
+    .og > * { position: relative; }
+    .og__top { display: flex; align-items: center; gap: 16px; }
+    .og__mark { width: 44px; height: 44px; }
+    .og__kick { font-family: var(--font-mono); font-size: 21px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--proj-ink); }
+    .og__title { font-family: var(--font-display); font-weight: 400; font-size: 116px; line-height: 0.92; letter-spacing: -0.03em; color: var(--text); margin: 18px 0 0; }
+    .og__sub { font-family: var(--font-prose); font-size: 29px; line-height: 1.3; color: var(--text-dim); max-width: 25ch; margin-top: 20px; }
+    .og__sub b { color: var(--text); }
+    .og__chips { display: flex; gap: 14px; flex-wrap: wrap; }
+    .og__chip { font-family: var(--font-mono); font-size: 21px; color: var(--text); background: var(--surface); border: 1px solid var(--border-strong); border-radius: 999px; padding: 10px 19px; }
+    .og__chip b { color: var(--proj-ink); }
+    .og__foot { display: flex; justify-content: space-between; align-items: center; font-family: var(--font-sans); font-size: 24px; color: var(--text-mute); }
+    .og__foot b { color: var(--text); }
+  </style>
+</head>
+<body data-proj="phos">
+  <div class="og">
+    <div class="og__top">
+      <svg class="og__mark" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="7" fill="#0c1512"/><path d="M16 7 L23.4 11.5 L23.4 20.5 L16 25 L8.6 20.5 L8.6 11.5 Z" fill="none" stroke="#18a890" stroke-width="2"/><rect x="12.7" y="12.7" width="6.6" height="6.6" rx="1.4" transform="rotate(45 16 16)" fill="#18a890"/></svg>
+      <span class="og__kick">Equity Research · CSE: PHOS</span>
+    </div>
+    <div>
+      <h1 class="og__title">First Phosphate</h1>
+      <p class="og__sub">The only pure-play <b>LFP-battery phosphate</b> developer in North America — priced at ~10% of PEA NAV.</p>
+    </div>
+    <div class="og__chips">
+      <span class="og__chip">Mkt cap <b>C$158M</b></span>
+      <span class="og__chip"><b>33%</b> PEA IRR</span>
+      <span class="og__chip">~24-mo runway</span>
+      <span class="og__chip">Interactive NAV model</span>
+    </div>
+    <div class="og__foot"><span>An interactive dashboard, sourced from SEDAR+ filings</span><span><b>samjo.me</b></span></div>
+  </div>
+</body>
+</html>

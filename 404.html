@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Not found — PHOS Analysis</title>
+  <meta name="robots" content="noindex" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <script>
+    (function () { try { var t = localStorage.getItem("theme"); if (["light","dark","midnight","bordeaux","forest"].includes(t)) document.documentElement.setAttribute("data-theme", t); } catch (e) {} })();
+  </script>
+  <link rel="stylesheet" href="/styles/tokens.css" />
+  <link rel="stylesheet" href="/styles/base.css" />
+  <style>
+    body { display: grid; place-items: center; min-height: 100vh; text-align: center; padding: 2rem; }
+    .nf { max-width: 34rem; }
+    .nf__code { font-family: var(--font-mono); font-size: var(--fs-2xs); letter-spacing: 0.2em; text-transform: uppercase; color: var(--proj-ink); }
+    .nf__title { font-family: var(--font-display); font-size: var(--fs-3xl); letter-spacing: -0.02em; margin: 0.6rem 0 0.8rem; }
+    .nf__lead { color: var(--text-dim); margin-bottom: 1.8rem; }
+  </style>
+</head>
+<body data-proj="phos">
+  <main class="nf">
+    <p class="nf__code">404 — off the map</p>
+    <h1 class="nf__title display">Nothing filed here.</h1>
+    <p class="nf__lead">That page doesn't exist. The dashboard lives at the root.</p>
+    <a class="btn btn--primary" href="/">Back to the dashboard <span class="arrow" aria-hidden="true">→</span></a>
+  </main>
+</body>
+</html>
