@@ -16,15 +16,36 @@
       ]
     },
     {
+      "comment": "Self-hosted fonts are content-stable — cache hard.",
       "source": "/assets/fonts/(.*)",
       "headers": [
         { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
       ]
     },
     {
-      "source": "/(styles|scripts|assets)/(.*)",
+      "comment": "CSS/JS are not content-hashed, so always revalidate (cheap 304s) — a new deploy takes effect immediately for returning visitors.",
+      "source": "/styles/(.*)",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=3600, must-revalidate" }
+        { "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }
+      ]
+    },
+    {
+      "source": "/scripts/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }
+      ]
+    },
+    {
+      "source": "/assets/vendor/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }
+      ]
+    },
+    {
+      "comment": "Live quote: short edge cache, always fresh enough.",
+      "source": "/api/quote",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, s-maxage=300, stale-while-revalidate=900" }
       ]
     }
   ]
