@@ -118,7 +118,7 @@ export function lineArea(host, cfg) {
 
   const draw = (W) => {
     const p = palette(host);
-    const H = cfg.height || Math.max(200, Math.min(320, Math.round(W * 0.46)));
+    const H = cfg.height || Math.max(190, Math.min(280, Math.round(W * 0.42)));
     const m = { t: 14, r: 14, b: 28, l: 46 };
     const iw = W - m.l - m.r, ih = H - m.t - m.b;
     const all = cfg.series.flatMap((s) => s.values).filter((v) => v != null);
@@ -238,7 +238,7 @@ export function bars(host, cfg) {
 
   const draw = (W) => {
     const p = palette(host);
-    const H = cfg.height || Math.max(200, Math.min(300, Math.round(W * 0.46)));
+    const H = cfg.height || Math.max(190, Math.min(260, Math.round(W * 0.42)));
     const m = { t: 14, r: 14, b: 28, l: 46 };
     const iw = W - m.l - m.r, ih = H - m.t - m.b;
     let lo = Math.min(0, ...cfg.values), hi = Math.max(0, ...cfg.values);
@@ -334,7 +334,7 @@ export function donut(host, cfg) {
 
   const draw = (W) => {
     const p = palette(host);
-    const size = Math.min(W, 240);
+    const size = Math.min(W, 216);
     const cx = size / 2, cy = size / 2, R = size / 2 - 6, r = R * 0.62;
     const total = cfg.slices.reduce((a, s) => a + s.value, 0);
     const cols = [p.brand, p.accent, p.up, p.gridStrong, cssvar("--proj", host),
@@ -395,7 +395,7 @@ export function sensitivity(host, cfg) {
 
   const draw = (W) => {
     const p = palette(host);
-    const H = cfg.height || Math.max(220, Math.min(300, Math.round(W * 0.5)));
+    const H = cfg.height || Math.max(200, Math.min(264, Math.round(W * 0.46)));
     const m = { t: 18, r: 16, b: 34, l: 46 };
     const iw = W - m.l - m.r, ih = H - m.t - m.b;
     const xs = cfg.pct, ys = (typeof cfg.price === "function") ? cfg.price() : cfg.price;
