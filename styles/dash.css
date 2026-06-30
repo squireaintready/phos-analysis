@@ -124,8 +124,10 @@
 }
 
 /* ---------------- data tables ---------------- */
-.table-host { width: 100%; }
-.table-host--scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: thin; }
+/* Any dense numeric table can exceed a phone's width; scroll horizontally
+   inside the panel rather than pushing the whole page wide. The peers table
+   opts into a wider min-width (.dtable--peers) so it always scrolls. */
+.table-host { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: thin; }
 .dtable { width: 100%; border-collapse: collapse; font-size: var(--fs-sm); }
 .dtable th, .dtable td { padding: 0.6rem 0.7rem; text-align: left; border-bottom: 1px solid var(--border); }
 .dtable thead th { font-family: var(--font-mono); font-size: var(--fs-2xs); letter-spacing: 0.04em; text-transform: uppercase; color: var(--text-mute); font-weight: 600; white-space: nowrap; border-bottom-color: var(--border-strong); }
@@ -236,7 +238,7 @@
 
 /* ---------------- risk matrix ---------------- */
 .riskmatrix { width: 100%; }
-.rm { display: grid; grid-template-columns: auto repeat(3, 1fr); gap: 4px; }
+.rm { display: grid; grid-template-columns: auto repeat(3, minmax(0, 1fr)); gap: 4px; }
 .rm__corner { }
 .rm__colh, .rm__rowh { font-family: var(--font-mono); font-size: var(--fs-2xs); letter-spacing: 0.04em; text-transform: uppercase; color: var(--text-mute); display: flex; align-items: center; }
 .rm__colh { justify-content: center; padding-bottom: 0.2rem; }
@@ -384,6 +386,14 @@ h1, h2, h3 { letter-spacing: -0.02em; }
 .fin__item { font-family: var(--font-sans); font-weight: 600; font-size: var(--fs-sm); color: var(--text); }
 .fin__note { font-size: var(--fs-xs); color: var(--text-mute); }
 .fin__type { font-family: var(--font-mono); font-size: var(--fs-2xs); color: var(--proj-ink); border: 1px solid color-mix(in srgb, var(--proj) 25%, transparent); border-radius: var(--r-sm); padding: 0.15rem 0.4rem; white-space: nowrap; }
+/* Phones: a nowrap type chip + date + detail won't fit one line — stack the
+   detail beneath a [date · type] header row (also de-cramps the middle column). */
+@media (max-width: 480px) {
+  .fin { grid-template-columns: 1fr auto; grid-template-areas: "date type" "body body"; align-items: baseline; gap: 0.15rem 0.8rem; }
+  .fin__date { grid-area: date; }
+  .fin__body { grid-area: body; }
+  .fin__type { grid-area: type; justify-self: end; }
+}
 
 /* ---- stars (governance / advisory / esg) ---- */
 .stars { position: relative; display: inline-block; font-size: var(--fs-sm); letter-spacing: 0.1em; line-height: 1; white-space: nowrap; }

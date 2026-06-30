@@ -481,10 +481,15 @@ export function rangeBars(host, cfg) {
   const draw = (W) => {
     const p = palette(host);
     const rows = cfg.rows;
-    const rowH = 30, gap = 16, padT = 8, padB = 26;
+    // Narrow screens: stack the method label on its own line above each bar
+    // (the labels are too long for a left gutter and would poke off-screen).
+    const compact = W < 480;
+    const rowH = compact ? 46 : 30, gap = compact ? 18 : 16, padT = 8, padB = 26;
     const H = padT + padB + rows.length * rowH + (rows.length - 1) * gap;
-    const labelW = Math.min(150, Math.max(96, Math.round(W * 0.3)));
-    const trackX = labelW + 12, trackW = W - trackX - 10;
+    const labelW = compact ? 0 : Math.min(150, Math.max(96, Math.round(W * 0.3)));
+    // compact insets leave room for the low/high value labels at the bar ends
+    const trackX = compact ? 40 : labelW + 12;
+    const trackW = compact ? W - 80 : W - trackX - 10;
     const lo = cfg.domainMin, hi = cfg.domainMax;
     const X = (v) => trackX + ((clamp(v, lo, hi) - lo) / (hi - lo)) * trackW;
     const svg = el("svg", { viewBox: `0 0 ${W} ${H}`, width: W, height: H, class: "chart-svg" });
@@ -502,9 +507,14 @@ export function rangeBars(host, cfg) {
     }
 
     rows.forEach((r, i) => {
-      const y = padT + i * (rowH + gap), cy = y + rowH / 2;
+      const y = padT + i * (rowH + gap);
+      // compact: label sits on its own line above the bar; bar drops to the row's lower half
+      const cy = compact ? y + rowH - 13 : y + rowH / 2;
       const color = r.upside ? p.up : p.brand;
-      const lab = el("text", { x: labelW, y: cy - 1, "text-anchor": "end", class: "chart-hlabel" }); lab.textContent = r.label; lab.setAttribute("fill", p.dim); svg.appendChild(lab);
+      const lab = compact
+        ? el("text", { x: 2, y: y + 13, "text-anchor": "start", class: "chart-hlabel" })
+        : el("text", { x: labelW, y: cy - 1, "text-anchor": "end", class: "chart-hlabel" });
+      lab.textContent = r.label; lab.setAttribute("fill", p.dim); svg.appendChild(lab);
       // range bar
       const x0 = X(r.low), x1 = X(r.high);
       svg.appendChild(el("rect", { x: x0, y: cy - 8, width: Math.max(2, x1 - x0), height: 16, rx: 4, fill: color, opacity: r.upside ? 0.35 : 0.22, class: "chart-hbar" }));
