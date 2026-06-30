@@ -95,6 +95,10 @@
   --grid-line: color-mix(in srgb, var(--text) 7%, transparent);
   --glass: color-mix(in srgb, var(--bg) 78%, transparent);  /* nav / palette backdrop */
   --live: var(--up);                                        /* live pulse dot */
+  /* left accent rail: solid through the centre, fades to both ends — the
+     centre plateau keeps it visible on short blocks as well as tall cards
+     (resolves the local --proj at the point of use) */
+  --rail-fade: linear-gradient(180deg, transparent, var(--proj) 28%, var(--proj) 72%, transparent);
 
   /* ---- Color: LIGHT (cool off-white · white cards lift · slate ink · emerald data) ---- */
   --bg: #f7f9fb;
