@@ -40,8 +40,11 @@
 :root {
   color-scheme: light;
 
-  /* ---- Type families ---- */
-  --font-display: "Fraunces Variable", "Fraunces", Georgia, "Times New Roman", serif;
+  /* ---- Type families ----
+     Institutional-research voice: tight sans for headings & numbers (Inter),
+     a serif for narrative prose (Source Serif), mono for tabular data/labels.
+     Deliberately NOT the portfolio's Fraunces serif-display. */
+  --font-display: "Inter Variable", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
   --font-sans: "Inter Variable", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
   --font-prose: "Source Serif 4", Georgia, "Times New Roman", serif;
   --font-mono: ui-monospace, "SF Mono", "JetBrains Mono", "Menlo", monospace;
@@ -93,24 +96,24 @@
   --glass: color-mix(in srgb, var(--bg) 78%, transparent);  /* nav / palette backdrop */
   --live: var(--up);                                        /* live pulse dot */
 
-  /* ---- Color: LIGHT (ink on warm paper) ---- */
-  --bg: #fbfaf7;
-  --bg-tint: #f7f4ee;
+  /* ---- Color: LIGHT (cool white · slate ink · deep-teal chrome · emerald data) ---- */
+  --bg: #ffffff;
+  --bg-tint: #f6f8f9;
   --surface: #ffffff;
-  --surface-2: #f4f1ea;
-  --border: #e7e2d8;
-  --border-strong: #d6cfc1;
-  --rule: #1c1a16;
-  --text: #1a1813;
-  --text-dim: #54504a;
-  --text-mute: #6f695e;
-  --accent: #27496d;
-  --accent-strong: #1b3650;
-  --accent-tint: rgba(39, 73, 109, 0.09);
-  --on-accent: #fbfaf7;
-  --up: #1f7a4d;
-  --down: #b23a2e;
-  --selection: rgba(39, 73, 109, 0.16);
+  --surface-2: #f2f5f6;
+  --border: #e3e8eb;
+  --border-strong: #ccd4d8;
+  --rule: #11181c;
+  --text: #11181c;
+  --text-dim: #49555c;
+  --text-mute: #6d7880;
+  --accent: #16302a;
+  --accent-strong: #0e221d;
+  --accent-tint: rgba(12, 133, 119, 0.08);
+  --on-accent: #ffffff;
+  --up: #0f7a52;
+  --down: #c0392b;
+  --selection: rgba(12, 133, 119, 0.16);
 
   --shadow-1: 0 1px 0 var(--border);
   --shadow-2: 0 18px 40px rgba(28, 26, 22, 0.10);

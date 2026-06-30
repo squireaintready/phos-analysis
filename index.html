@@ -3,41 +3,41 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>First Phosphate (CSE: PHOS) — Equity Research Dashboard</title>
-  <meta name="description" content="An interactive equity-research dashboard for First Phosphate Corp. (CSE: PHOS) — financials, cash runway, peer valuation, an interactive NAV model, governance, and risk, sourced from SEDAR+ filings." />
+  <title>First Phosphate (CSE: PHOS) — Equity Research</title>
+  <meta name="description" content="An interactive equity-research report on First Phosphate Corp. (CSE: PHOS): the LFP-phosphate thesis, the Bégin-Lamarche PEA, market & supply chain, financials, capital structure, an interactive NAV valuation, governance, ESG and risk — sourced from SEDAR+ filings." />
   <meta name="author" content="Samuel Jo" />
   <link rel="canonical" href="https://phos-analysis.vercel.app/" />
   <meta name="color-scheme" content="light dark" />
-  <meta name="theme-color" content="#fbfaf7" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
   <meta name="theme-color" content="#0b1310" media="(prefers-color-scheme: dark)" />
 
-  <!-- Open Graph / Twitter -->
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="First Phosphate (CSE: PHOS) — Equity Research Dashboard" />
-  <meta property="og:description" content="Financials, cash runway, peer valuation, an interactive NAV model, governance & risk — sourced from SEDAR+ filings. Built by Samuel Jo." />
+  <meta property="og:title" content="First Phosphate (CSE: PHOS) — Equity Research" />
+  <meta property="og:description" content="An interactive equity-research report — thesis, PEA, market, financials, an interactive NAV model, governance & risk. Sourced from SEDAR+ filings." />
   <meta property="og:url" content="https://phos-analysis.vercel.app/" />
   <meta property="og:image" content="https://phos-analysis.vercel.app/public/img/og.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="First Phosphate (CSE: PHOS) — Equity Research Dashboard" />
-  <meta name="twitter:description" content="An interactive equity-research dashboard sourced from SEDAR+ filings." />
+  <meta name="twitter:title" content="First Phosphate (CSE: PHOS) — Equity Research" />
+  <meta name="twitter:description" content="An interactive equity-research report, sourced from SEDAR+ filings." />
   <meta name="twitter:image" content="https://phos-analysis.vercel.app/public/img/og.png" />
 
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="apple-touch-icon" href="/public/img/apple-touch-icon.png" />
 
-  <!-- Set theme before paint to avoid a flash -->
+  <!-- Set theme before paint. White ("Paper") is the default; OS-dark fallback is
+       intentionally overridden so the institutional look leads. -->
   <script>
     (function () {
       try {
         var t = localStorage.getItem("theme");
-        if (["light","dark","midnight","bordeaux","forest"].includes(t)) document.documentElement.setAttribute("data-theme", t);
-      } catch (e) {}
+        document.documentElement.setAttribute("data-theme",
+          ["light","dark","midnight","bordeaux","forest"].includes(t) ? t : "light");
+      } catch (e) { document.documentElement.setAttribute("data-theme", "light"); }
     })();
   </script>
 
-  <link rel="preload" href="/assets/fonts/fraunces-latin-v2.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/assets/fonts/source-serif-4-latin.woff2" as="font" type="font/woff2" crossorigin />
 
@@ -49,8 +49,8 @@
   {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    "name": "First Phosphate (CSE: PHOS) — Equity Research Dashboard",
-    "description": "Interactive equity-research dashboard for First Phosphate Corp., sourced from SEDAR+ filings.",
+    "name": "First Phosphate (CSE: PHOS) — Equity Research",
+    "description": "Interactive equity-research report on First Phosphate Corp., sourced from SEDAR+ filings.",
     "url": "https://phos-analysis.vercel.app/",
     "author": { "@type": "Person", "name": "Samuel Jo", "url": "https://samjo.me/" },
     "about": { "@type": "Corporation", "name": "First Phosphate Corp.", "tickerSymbol": "CSE:PHOS" },
@@ -67,12 +67,12 @@
   <!-- ===================== Nav ===================== -->
   <header class="site-nav">
     <nav class="wrap wrap--wide site-nav__inner" aria-label="Primary">
-      <a class="brand" href="#top" aria-label="PHOS analysis — top">
-        <span class="brand__mark" aria-hidden="true"></span> PHOS&nbsp;Analysis
+      <a class="brand" href="#top" aria-label="PHOS research — top">
+        <span class="brand__mark" aria-hidden="true"></span> PHOS&nbsp;Research
       </a>
       <div class="nav-links">
-        <a href="#financials">Financials</a>
-        <a href="#peers">Peers</a>
+        <a href="#project">Project</a>
+        <a href="#market">Market</a>
         <a href="#valuation">Valuation</a>
         <a href="#risks">Risk</a>
         <button class="cmdk-trigger" type="button" data-cmdk-open aria-label="Open command menu — search and jump anywhere">
@@ -90,28 +90,49 @@
   <main id="main">
     <span id="top"></span>
 
-    <!-- ===================== Hero ===================== -->
-    <section class="hero" aria-labelledby="hero-title">
-      <div class="hero__inner wrap wrap--wide">
-        <p class="kicker hero__kicker"><span class="kicker__dot"></span> Pre-revenue · Critical minerals · Saguenay, Québec</p>
-        <h1 id="hero-title" class="hero__title display" data-fit data-fit-text="First Phosphate" data-fit-max="150" data-fit-min="40" data-fit-vh="0.2">First Phosphate</h1>
-        <p class="hero__tickers"><span class="mono">CSE: PHOS</span><span class="mono">OTCQX: FRSPF</span><span class="mono">FSE: KD0</span></p>
-        <p class="hero__lead lead">The only pure-play <strong>LFP-battery phosphate</strong> developer on a North-American exchange — trading at roughly <strong>10% of its PEA net asset value</strong>. This dashboard reads the story straight from the filings: the balance sheet, the burn, the peers, and what the market is actually pricing in.</p>
-        <div class="hero__actions">
-          <a class="btn btn--primary" href="#thesis">Read the thesis <span class="arrow" aria-hidden="true">→</span></a>
-          <a class="btn btn--ghost" href="#valuation">Open the valuation model</a>
+    <!-- ===================== Masthead ===================== -->
+    <section class="masthead wrap wrap--wide" aria-labelledby="mh-title">
+      <div class="masthead__grid">
+        <div class="masthead__lede">
+          <p class="kicker masthead__kicker"><span class="kicker__dot"></span> Equity Research · Critical Minerals · Saguenay, Québec</p>
+          <h1 id="mh-title" class="masthead__title">First Phosphate Corp.</h1>
+          <p class="masthead__tickers"><span class="mono">CSE: PHOS</span><span class="mono">OTCQX: FRSPF</span><span class="mono">FSE: KD0</span></p>
+          <p class="masthead__lead lead">The only pure-play <strong>LFP-battery phosphate</strong> developer on a North-American exchange, trading at roughly <strong>10% of its PEA net asset value</strong>. This report reads the company straight from its filings — the project, the market, the balance sheet, the peers, and what the price implies.</p>
+          <p class="masthead__meta"><span data-vintage="filings">SEDAR+ filings through Q3 FY2026</span> · <span data-vintage="market">market data Mar 2026</span> · <span class="masthead__disc">research &amp; education only — not investment advice</span></p>
         </div>
-        <p class="hero__meta">Data as of <strong>March 2026</strong> · sourced from SEDAR+ filings (FY2024 – Q3 FY2026) · <span class="hero__disc">research &amp; education only — not investment advice</span></p>
+        <aside class="coverage" aria-label="Coverage summary">
+          <p class="coverage__h">Coverage summary</p>
+          <div class="coverage__price">
+            <div>
+              <p class="coverage__price-label">Share price <span class="coverage__live" id="price-live" hidden><span class="dot"></span>live</span></p>
+              <p class="coverage__price-val" id="cov-price">C$1.05</p>
+              <p class="coverage__price-chg" id="cov-change" data-vintage="price">as of Mar 2026</p>
+            </div>
+            <div class="coverage__assess">
+              <p class="coverage__assess-label">Assessment</p>
+              <p class="coverage__assess-val" id="cov-assess">High-risk / high-reward</p>
+            </div>
+          </div>
+          <div class="coverage__fv">
+            <p class="coverage__fv-label">Fair-value range <span class="coverage__fv-sub">(bear → bull NAV)</span></p>
+            <div class="coverage__fv-bar" id="cov-fvbar"></div>
+          </div>
+          <dl class="coverage__stats" id="cov-stats"></dl>
+        </aside>
       </div>
-      <nav class="index-rail wrap wrap--wide" aria-label="Sections">
+      <nav class="index-rail" aria-label="Sections">
         <a href="#snapshot"><span class="index-rail__n">01</span> Snapshot</a>
         <a href="#thesis"><span class="index-rail__n">02</span> Thesis</a>
-        <a href="#financials"><span class="index-rail__n">03</span> Financials</a>
-        <a href="#runway"><span class="index-rail__n">04</span> Cash &amp; runway</a>
-        <a href="#peers"><span class="index-rail__n">05</span> Peers</a>
-        <a href="#valuation"><span class="index-rail__n">06</span> Valuation</a>
-        <a href="#management"><span class="index-rail__n">07</span> Management</a>
-        <a href="#risks"><span class="index-rail__n">08</span> Risk</a>
+        <a href="#project"><span class="index-rail__n">03</span> Project</a>
+        <a href="#market"><span class="index-rail__n">04</span> Market</a>
+        <a href="#supply"><span class="index-rail__n">05</span> Supply chain</a>
+        <a href="#financials"><span class="index-rail__n">06</span> Financials</a>
+        <a href="#capital"><span class="index-rail__n">07</span> Capital</a>
+        <a href="#valuation"><span class="index-rail__n">08</span> Valuation</a>
+        <a href="#management"><span class="index-rail__n">09</span> Management</a>
+        <a href="#esg"><span class="index-rail__n">10</span> ESG</a>
+        <a href="#roadmap"><span class="index-rail__n">11</span> Roadmap</a>
+        <a href="#risks"><span class="index-rail__n">12</span> Risk</a>
       </nav>
     </section>
 
@@ -122,36 +143,12 @@
         <h2 id="snap-title" class="sec-head__title">Where the company stands today.</h2>
       </div>
       <div class="kpi-grid">
-        <div class="kpi reveal">
-          <p class="kpi__label">Market cap</p>
-          <p class="kpi__value">C$<span class="count" data-count-to="158" data-count-suffix="M">158M</span></p>
-          <p class="kpi__note">≈ 10% of PEA net asset value</p>
-        </div>
-        <div class="kpi reveal" data-delay="1">
-          <p class="kpi__label">Cash position</p>
-          <p class="kpi__value">C$<span class="count" data-count-to="20.0" data-count-decimals="1" data-count-suffix="M">20.0M</span></p>
-          <p class="kpi__note">Q3 FY26 · est. ~C$33M post-financing <span class="kpi__delta kpi__delta--up">▲ +968% YoY</span></p>
-        </div>
-        <div class="kpi reveal" data-delay="2">
-          <p class="kpi__label">Cash runway</p>
-          <p class="kpi__value">~<span class="count" data-count-to="24" data-count-suffix=" mo">24 mo</span></p>
-          <p class="kpi__note">at ~C$2.7M / quarter operating burn</p>
-        </div>
-        <div class="kpi reveal">
-          <p class="kpi__label">Mkt cap / PEA NAV</p>
-          <p class="kpi__value"><span class="count" data-count-to="10" data-count-suffix="%">10%</span></p>
-          <p class="kpi__note">vs. LFP-chain peers 2.5% – 37%</p>
-        </div>
-        <div class="kpi reveal" data-delay="1">
-          <p class="kpi__label">Net loss (annualized)</p>
-          <p class="kpi__value">C$<span class="count" data-count-to="12.7" data-count-decimals="1" data-count-suffix="M">12.7M</span></p>
-          <p class="kpi__note">accelerating with the drill ramp</p>
-        </div>
-        <div class="kpi reveal" data-delay="2">
-          <p class="kpi__label">Dilution, FY2026 YTD</p>
-          <p class="kpi__value"><span class="count" data-count-to="105" data-count-suffix="%">105%</span></p>
-          <p class="kpi__note">73.8M → 151M shares (~192M fully diluted)</p>
-        </div>
+        <div class="kpi reveal"><p class="kpi__label">Market cap</p><p class="kpi__value" id="kpi-mktcap">C$<span class="count" data-count-to="158" data-count-suffix="M">158M</span></p><p class="kpi__note" id="kpi-mktcap-note">≈ 10% of PEA net asset value</p></div>
+        <div class="kpi reveal" data-delay="1"><p class="kpi__label">Cash position</p><p class="kpi__value">C$<span class="count" data-count-to="20.0" data-count-decimals="1" data-count-suffix="M">20.0M</span></p><p class="kpi__note">Q3 FY26 · est. ~C$33M post-financing <span class="kpi__delta kpi__delta--up">▲ +968% YoY</span></p></div>
+        <div class="kpi reveal" data-delay="2"><p class="kpi__label">Cash runway</p><p class="kpi__value">~<span class="count" data-count-to="24" data-count-suffix=" mo">24 mo</span></p><p class="kpi__note">at ~C$2.7M / quarter operating burn</p></div>
+        <div class="kpi reveal"><p class="kpi__label">Mkt cap / PEA NAV</p><p class="kpi__value" id="kpi-nav"><span class="count" data-count-to="10" data-count-suffix="%">10%</span></p><p class="kpi__note">vs. LFP-chain peers 2.5% – 37%</p></div>
+        <div class="kpi reveal" data-delay="1"><p class="kpi__label">Net loss (annualized)</p><p class="kpi__value">C$<span class="count" data-count-to="12.7" data-count-decimals="1" data-count-suffix="M">12.7M</span></p><p class="kpi__note">accelerating with the drill ramp</p></div>
+        <div class="kpi reveal" data-delay="2"><p class="kpi__label">Dilution, FY2026 YTD</p><p class="kpi__value"><span class="count" data-count-to="105" data-count-suffix="%">105%</span></p><p class="kpi__note">73.8M → 151M shares (~192M fully diluted)</p></div>
       </div>
       <p class="micro reveal">First Phosphate Corp. · FY end Feb 28/29 · IFRS, figures in CAD · Bégin-Lamarche project, Saguenay–Lac-St-Jean.</p>
     </section>
@@ -164,106 +161,116 @@
         <p class="sec-head__lead lead">PHOS trades richer than ordinary phosphate juniors because of a single bet — that its phosphate feeds the lithium-iron-phosphate battery chain. The bull, base, and bear cases all turn on whether that bet holds.</p>
       </div>
       <div class="thesis-grid">
-        <article class="thesis-card thesis-card--bull reveal">
-          <header class="thesis-card__head"><span class="thesis-card__tag">Bull</span><h3>The re-rating case</h3></header>
-          <ul class="thesis-card__list" data-thesis="bull"></ul>
-        </article>
-        <article class="thesis-card thesis-card--base reveal" data-delay="1">
-          <header class="thesis-card__head"><span class="thesis-card__tag">Base</span><h3>What's priced in</h3></header>
-          <ul class="thesis-card__list" data-thesis="base"></ul>
-        </article>
-        <article class="thesis-card thesis-card--bear reveal" data-delay="2">
-          <header class="thesis-card__head"><span class="thesis-card__tag">Bear</span><h3>The break case</h3></header>
-          <ul class="thesis-card__list" data-thesis="bear"></ul>
-        </article>
+        <article class="thesis-card thesis-card--bull reveal"><header class="thesis-card__head"><span class="thesis-card__tag">Bull</span><h3>The re-rating case</h3></header><ul class="thesis-card__list" data-thesis="bull"></ul></article>
+        <article class="thesis-card thesis-card--base reveal" data-delay="1"><header class="thesis-card__head"><span class="thesis-card__tag">Base</span><h3>What's priced in</h3></header><ul class="thesis-card__list" data-thesis="base"></ul></article>
+        <article class="thesis-card thesis-card--bear reveal" data-delay="2"><header class="thesis-card__head"><span class="thesis-card__tag">Bear</span><h3>The break case</h3></header><ul class="thesis-card__list" data-thesis="bear"></ul></article>
       </div>
     </section>
 
-    <!-- ===================== 03 Financials ===================== -->
+    <!-- ===================== 03 Company & project ===================== -->
+    <section id="project" class="section wrap wrap--wide" aria-labelledby="proj-title">
+      <div class="sec-head reveal">
+        <p class="sec-head__meta"><span class="sec-head__n">03</span> Company &amp; project</p>
+        <h2 id="proj-title" class="sec-head__title">Bégin-Lamarche: a mine, and a battery plan.</h2>
+        <p class="sec-head__lead lead" id="proj-summary"></p>
+      </div>
+      <div class="panel-grid">
+        <figure class="panel reveal">
+          <figcaption class="panel__cap"><h3>PEA economics</h3><p>2024 Preliminary Economic Assessment</p></figcaption>
+          <dl class="kv-grid" id="proj-economics"></dl>
+        </figure>
+        <figure class="panel reveal" data-delay="1">
+          <figcaption class="panel__cap"><h3>Resource confidence</h3><p>255.5 Mt — but 83% Inferred</p></figcaption>
+          <div class="chart-host chart-host--donut" id="proj-resource"></div>
+        </figure>
+        <figure class="panel panel--wide reveal">
+          <figcaption class="panel__cap"><h3>Mine-to-battery value chain</h3><p>Vertical integration, step by step</p></figcaption>
+          <ol class="chain" id="proj-downstream"></ol>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ===================== 04 Market & industry ===================== -->
+    <section id="market" class="section wrap wrap--wide" aria-labelledby="market-title">
+      <div class="sec-head reveal">
+        <p class="sec-head__meta"><span class="sec-head__n">04</span> Market &amp; industry</p>
+        <h2 id="market-title" class="sec-head__title">The phosphate node of the LFP boom.</h2>
+        <p class="sec-head__lead lead">LFP overtook nickel chemistries to roughly half of EV batteries in 2024, and dominates grid storage. Phosphate is the most supply-constrained input — and China controls ~90% of LFP powder. That is the entire reason a Québec phosphate junior commands a premium.</p>
+      </div>
+      <div class="panel-grid">
+        <figure class="panel panel--wide reveal">
+          <figcaption class="panel__cap"><h3>LFP battery market</h3><p>Estimated market size, US$B (range)</p></figcaption>
+          <div class="chart-host" id="market-growth"></div>
+        </figure>
+        <figure class="panel panel--wide reveal">
+          <figcaption class="panel__cap"><h3>Demand drivers</h3><p>Why phosphate, why now</p></figcaption>
+          <div class="driver-list" id="market-drivers"></div>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ===================== 05 Supply chain ===================== -->
+    <section id="supply" class="section wrap wrap--wide" aria-labelledby="supply-title">
+      <div class="sec-head reveal">
+        <p class="sec-head__meta"><span class="sec-head__n">05</span> Supply chain</p>
+        <h2 id="supply-title" class="sec-head__title">A Québec battery-materials cluster.</h2>
+      </div>
+      <figure class="panel panel--wide reveal">
+        <figcaption class="panel__cap"><h3>Where PHOS sits</h3><p>Phosphate rock → cell — and the planned integration</p></figcaption>
+        <div class="supplychain" id="supply-chain"></div>
+      </figure>
+      <p class="callout reveal"><span class="callout__mark" aria-hidden="true"></span><span id="supply-insight"></span></p>
+    </section>
+
+    <!-- ===================== 06 Financials ===================== -->
     <section id="financials" class="section wrap wrap--wide" aria-labelledby="fin-title">
       <div class="sec-head reveal">
-        <p class="sec-head__meta"><span class="sec-head__n">03</span> Financials</p>
+        <p class="sec-head__meta"><span class="sec-head__n">06</span> Financials</p>
         <h2 id="fin-title" class="sec-head__title">A balance sheet rebuilt by equity.</h2>
         <p class="sec-head__lead lead">Total assets grew <strong>+237%</strong> in nine months — almost entirely cash from share issuance. The company is essentially debt-free, but the accumulated deficit keeps climbing as exploration intensifies.</p>
       </div>
       <div class="panel-grid">
-        <figure class="panel panel--wide reveal">
-          <figcaption class="panel__cap"><h3>Balance-sheet growth</h3><p>Assets, cash &amp; equity across five reporting periods (CAD)</p></figcaption>
-          <div class="chart-host" id="chart-balance"></div>
-        </figure>
-        <figure class="panel reveal">
-          <figcaption class="panel__cap"><h3>Net loss by quarter</h3><p>Eight quarters — the burn steps up</p></figcaption>
-          <div class="chart-host" id="chart-netloss"></div>
-        </figure>
-        <figure class="panel reveal">
-          <figcaption class="panel__cap"><h3>FY2025 operating expenses</h3><p>Where the money goes</p></figcaption>
-          <div class="chart-host chart-host--donut" id="chart-expenses"></div>
-        </figure>
-        <figure class="panel panel--wide reveal">
-          <figcaption class="panel__cap"><h3>Key ratios</h3><p>Liquidity, leverage &amp; book value across periods</p></figcaption>
-          <div class="table-host" id="table-ratios"></div>
-        </figure>
+        <figure class="panel panel--wide reveal"><figcaption class="panel__cap"><h3>Balance-sheet growth</h3><p>Assets, cash &amp; equity across five reporting periods (CAD)</p></figcaption><div class="chart-host" id="chart-balance"></div></figure>
+        <figure class="panel reveal"><figcaption class="panel__cap"><h3>Net loss by quarter</h3><p>Eight quarters — the burn steps up</p></figcaption><div class="chart-host" id="chart-netloss"></div></figure>
+        <figure class="panel reveal"><figcaption class="panel__cap"><h3>FY2025 operating expenses</h3><p>Where the money goes</p></figcaption><div class="chart-host chart-host--donut" id="chart-expenses"></div></figure>
+        <figure class="panel panel--wide reveal"><figcaption class="panel__cap"><h3>Key ratios</h3><p>Liquidity, leverage &amp; book value across periods</p></figcaption><div class="table-host" id="table-ratios"></div></figure>
       </div>
     </section>
 
-    <!-- ===================== 04 Cash & runway ===================== -->
-    <section id="runway" class="section wrap wrap--wide" aria-labelledby="run-title">
+    <!-- ===================== 07 Cash & capital ===================== -->
+    <section id="capital" class="section wrap wrap--wide" aria-labelledby="cap-title">
       <div class="sec-head reveal">
-        <p class="sec-head__meta"><span class="sec-head__n">04</span> Cash &amp; runway</p>
-        <h2 id="run-title" class="sec-head__title">Funded for two years — not for the mine.</h2>
-        <p class="sec-head__lead lead">There is enough cash to drill through mid-2027. There is nowhere near enough to build: the PEA needs roughly <strong>C$1.0&nbsp;billion</strong> of initial capital against ~C$33M on hand.</p>
+        <p class="sec-head__meta"><span class="sec-head__n">07</span> Cash, capital &amp; runway</p>
+        <h2 id="cap-title" class="sec-head__title">Funded for two years — not for the mine.</h2>
+        <p class="sec-head__lead lead">There is enough cash to drill through mid-2027, and nowhere near enough to build: the PEA needs roughly <strong>C$1.0&nbsp;billion</strong> against ~C$33M on hand. The gap is closed with dilution — already +105% this year — plus grants, debt and a future JV.</p>
       </div>
       <div class="panel-grid">
-        <figure class="panel panel--wide reveal">
-          <figcaption class="panel__cap"><h3>Cash balance &amp; quarterly burn</h3><p>Eight quarters — financings refill the tank</p></figcaption>
-          <div class="chart-host" id="chart-cash"></div>
-        </figure>
-        <figure class="panel reveal">
-          <figcaption class="panel__cap"><h3>Forward runway</h3><p>Months of cash, by burn scenario</p></figcaption>
-          <div class="scenario-list" id="runway-scenarios"></div>
-        </figure>
-        <figure class="panel panel--wide reveal">
-          <figcaption class="panel__cap"><h3>Dilution</h3><p>Shares outstanding &amp; cumulative dilution since FY2024</p></figcaption>
-          <div class="chart-host" id="chart-dilution"></div>
-        </figure>
-        <figure class="panel reveal">
-          <figcaption class="panel__cap"><h3>The capex gap</h3><p>What it takes to reach production</p></figcaption>
-          <div class="waterfall" id="capex-gap"></div>
-        </figure>
+        <figure class="panel panel--wide reveal"><figcaption class="panel__cap"><h3>Cash balance</h3><p>Eight quarters — financings refill the tank</p></figcaption><div class="chart-host" id="chart-cash"></div></figure>
+        <figure class="panel reveal"><figcaption class="panel__cap"><h3>Forward runway</h3><p>Months of cash, by burn scenario</p></figcaption><div class="scenario-list" id="runway-scenarios"></div></figure>
+        <figure class="panel reveal"><figcaption class="panel__cap"><h3>The capex gap</h3><p>What it takes to reach production</p></figcaption><div class="waterfall" id="capex-gap"></div></figure>
+        <figure class="panel panel--wide reveal"><figcaption class="panel__cap"><h3>Dilution</h3><p>Shares outstanding across eight quarters</p></figcaption><div class="chart-host" id="chart-dilution"></div></figure>
+        <figure class="panel reveal"><figcaption class="panel__cap"><h3>Ownership</h3><p>Insider stakes &amp; float</p></figcaption><div class="chart-host chart-host--donut" id="cap-ownership"></div></figure>
+        <figure class="panel reveal"><figcaption class="panel__cap"><h3>Capital structure</h3><p>Shares, options &amp; financing</p></figcaption><dl class="kv-grid" id="cap-structure"></dl></figure>
+        <figure class="panel panel--wide reveal"><figcaption class="panel__cap"><h3>Financing &amp; government support</h3><p>How the gap gets funded</p></figcaption><div class="fin-list" id="financing-list"></div></figure>
       </div>
     </section>
 
-    <!-- ===================== 05 Peers ===================== -->
-    <section id="peers" class="section wrap wrap--wide" aria-labelledby="peers-title">
-      <div class="sec-head reveal">
-        <p class="sec-head__meta"><span class="sec-head__n">05</span> Peers</p>
-        <h2 id="peers-title" class="sec-head__title">The cheapest entry to the LFP chain.</h2>
-        <p class="sec-head__lead lead">Against the Québec battery-materials cluster — graphite, lithium, phosphate — PHOS prices at the low end of net asset value while carrying the highest project IRR.</p>
-      </div>
-      <div class="panel-grid">
-        <figure class="panel reveal">
-          <figcaption class="panel__cap"><h3>Market cap / NAV</h3><p>Lower = cheaper vs. study value</p></figcaption>
-          <div class="chart-host" id="chart-peers-nav"></div>
-        </figure>
-        <figure class="panel reveal" data-delay="1">
-          <figcaption class="panel__cap"><h3>After-tax IRR</h3><p>Project economics from each study</p></figcaption>
-          <div class="chart-host" id="chart-peers-irr"></div>
-        </figure>
-        <figure class="panel panel--wide reveal">
-          <figcaption class="panel__cap"><h3>Supply-chain comparison</h3><p>Québec LFP cluster &amp; phosphate peers</p></figcaption>
-          <div class="table-host table-host--scroll" id="table-peers"></div>
-        </figure>
-      </div>
-      <p class="callout reveal"><span class="callout__mark" aria-hidden="true"></span><span>PHOS has already produced commercial-grade LFP 18650 cells using its own phosphate and Québec graphite — the only junior in this group to demonstrate the full mine-to-battery chain.</span></p>
-    </section>
-
-    <!-- ===================== 06 Valuation ===================== -->
+    <!-- ===================== 08 Valuation & peers ===================== -->
     <section id="valuation" class="section wrap wrap--wide" aria-labelledby="val-title">
       <div class="sec-head reveal">
-        <p class="sec-head__meta"><span class="sec-head__n">06</span> Valuation</p>
-        <h2 id="val-title" class="sec-head__title">Price the PEA yourself.</h2>
-        <p class="sec-head__lead lead">A pre-revenue explorer is worth some fraction of its study NAV — the market decides which. Move the discount and watch the implied share price against where PHOS trades today.</p>
+        <p class="sec-head__meta"><span class="sec-head__n">08</span> Valuation &amp; peers</p>
+        <h2 id="val-title" class="sec-head__title">Cheap on every lens — for a reason.</h2>
+        <p class="sec-head__lead lead">Against the Québec LFP cluster, PHOS prices at the low end of NAV with the highest project IRR. A pre-revenue explorer is worth some fraction of its study value — move the discount and price it yourself.</p>
       </div>
+
+      <div class="panel-grid">
+        <figure class="panel reveal"><figcaption class="panel__cap"><h3>Market cap / NAV</h3><p>Lower = cheaper vs. study value</p></figcaption><div class="chart-host" id="chart-peers-nav"></div></figure>
+        <figure class="panel reveal" data-delay="1"><figcaption class="panel__cap"><h3>After-tax IRR</h3><p>Project economics from each study</p></figcaption><div class="chart-host" id="chart-peers-irr"></div></figure>
+        <figure class="panel panel--wide reveal"><figcaption class="panel__cap"><h3>Supply-chain comparison</h3><p>Québec LFP cluster &amp; phosphate peers</p></figcaption><div class="table-host table-host--scroll" id="table-peers"></div></figure>
+        <figure class="panel panel--wide reveal"><figcaption class="panel__cap"><h3>Fair-value range</h3><p>Implied share price by method (C$)</p></figcaption><div class="chart-host" id="football-field"></div></figure>
+      </div>
+
+      <div class="val-head reveal"><h3>Interactive NAV model</h3><p>A pre-revenue explorer trades at some fraction of its study NAV — set the discount and watch the implied price against today.</p></div>
       <div class="valuation">
         <div class="valuation__controls reveal">
           <div class="val-readout">
@@ -285,7 +292,7 @@
           </div>
           <dl class="val-facts">
             <div><dt>PEA after-tax NPV (8%)</dt><dd>C$1.59B</dd></div>
-            <div><dt>Current price</dt><dd>C$1.05</dd></div>
+            <div><dt>Current price</dt><dd id="val-current">C$1.05</dd></div>
             <div><dt>Implied market cap</dt><dd id="val-mktcap">—</dd></div>
           </dl>
         </div>
@@ -297,70 +304,89 @@
       <div class="scenario-cards" id="val-scenarios"></div>
     </section>
 
-    <!-- ===================== 07 Management ===================== -->
+    <!-- ===================== 09 Management ===================== -->
     <section id="management" class="section wrap wrap--wide" aria-labelledby="mgmt-title">
       <div class="sec-head reveal">
-        <p class="sec-head__meta"><span class="sec-head__n">07</span> Management</p>
-        <h2 id="mgmt-title" class="sec-head__title">Skin in the game, by design.</h2>
-        <p class="sec-head__lead lead">The CEO takes <strong>100% of pay in equity</strong> and has bought ~C$1.8M of stock in the open market. Alignment is the strongest part of the story; board independence is the weakest.</p>
+        <p class="sec-head__meta"><span class="sec-head__n">09</span> Management &amp; governance</p>
+        <h2 id="mgmt-title" class="sec-head__title">Skin in the game, world-class advisors.</h2>
+        <p class="sec-head__lead lead">The CEO takes <strong>100% of pay in equity</strong> and has bought ~C$1.8M of stock in the open market. The advisory board is the quiet edge — the former CEO of Europe's largest phosphoric-acid producer, the founder of Arianne, and a former US critical-minerals director.</p>
       </div>
       <div class="panel-grid">
-        <div class="panel reveal">
-          <div class="mgmt-highlights" id="mgmt-highlights"></div>
-        </div>
-        <figure class="panel reveal" data-delay="1">
-          <figcaption class="panel__cap"><h3>Governance scorecard</h3><p>Assessed by area</p></figcaption>
-          <div class="ratings" id="mgmt-ratings"></div>
-        </figure>
-        <figure class="panel panel--wide reveal">
-          <figcaption class="panel__cap"><h3>Insider open-market buying</h3><p>Conviction at retail prices</p></figcaption>
-          <div class="table-host" id="table-insiders"></div>
-        </figure>
+        <div class="panel reveal"><div class="mgmt-highlights" id="mgmt-highlights"></div></div>
+        <figure class="panel reveal" data-delay="1"><figcaption class="panel__cap"><h3>Governance scorecard</h3><p>Assessed by area</p></figcaption><div class="ratings" id="mgmt-ratings"></div></figure>
+        <figure class="panel panel--wide reveal"><figcaption class="panel__cap"><h3>Advisory board</h3><p>The phosphate &amp; policy bench</p></figcaption><div class="advisory" id="advisory-list"></div></figure>
+        <figure class="panel panel--wide reveal"><figcaption class="panel__cap"><h3>Insider open-market buying</h3><p>Conviction at retail prices</p></figcaption><div class="table-host" id="table-insiders"></div></figure>
       </div>
     </section>
 
-    <!-- ===================== 08 Risk & catalysts ===================== -->
+    <!-- ===================== 10 ESG ===================== -->
+    <section id="esg" class="section wrap wrap--wide" aria-labelledby="esg-title">
+      <div class="sec-head reveal">
+        <p class="sec-head__meta"><span class="sec-head__n">10</span> ESG, permitting &amp; Indigenous</p>
+        <h2 id="esg-title" class="sec-head__title">Social licence is a strategy, not a checkbox.</h2>
+        <p class="sec-head__lead lead">For a junior miner, permitting and Indigenous partnership decide whether a project is ever built. PHOS put a UN Indigenous-rights negotiator in the President's chair — a genuine differentiator — while board independence remains the soft spot.</p>
+      </div>
+      <div class="esg-list" id="esg-list"></div>
+    </section>
+
+    <!-- ===================== 11 Roadmap & catalysts ===================== -->
+    <section id="roadmap" class="section wrap wrap--wide" aria-labelledby="road-title">
+      <div class="sec-head reveal">
+        <p class="sec-head__meta"><span class="sec-head__n">11</span> Roadmap &amp; catalysts</p>
+        <h2 id="road-title" class="sec-head__title">The path to first production (~2029).</h2>
+      </div>
+      <figure class="panel panel--wide reveal"><figcaption class="panel__cap"><h3>Stage gates to production</h3><p>PEA → drilling → PFS → FS → financing → build</p></figcaption><ol class="roadmap" id="roadmap-list"></ol></figure>
+      <div class="panel-grid">
+        <figure class="panel reveal"><figcaption class="panel__cap"><h3>Forward catalysts</h3><p>What de-risks the story</p></figcaption><ul class="catalyst-fwd" id="catalysts-fwd"></ul></figure>
+        <figure class="panel reveal" data-delay="1"><figcaption class="panel__cap"><h3>Recent catalysts</h3><p>Momentum into 2026</p></figcaption><ol class="timeline timeline--compact" id="catalysts-past"></ol></figure>
+      </div>
+    </section>
+
+    <!-- ===================== 12 Risk ===================== -->
     <section id="risks" class="section wrap wrap--wide" aria-labelledby="risk-title">
       <div class="sec-head reveal">
-        <p class="sec-head__meta"><span class="sec-head__n">08</span> Risk &amp; catalysts</p>
-        <h2 id="risk-title" class="sec-head__title">What to watch — and what could break.</h2>
+        <p class="sec-head__meta"><span class="sec-head__n">12</span> Risk</p>
+        <h2 id="risk-title" class="sec-head__title">What could break the thesis.</h2>
       </div>
       <div class="panel-grid">
-        <figure class="panel reveal">
-          <figcaption class="panel__cap"><h3>Risk matrix</h3><p>Severity × probability</p></figcaption>
-          <div class="riskmatrix" id="risk-matrix"></div>
-        </figure>
-        <figure class="panel reveal" data-delay="1">
-          <figcaption class="panel__cap"><h3>Forward catalysts</h3><p>The path that de-risks the story</p></figcaption>
-          <ul class="catalyst-fwd" id="catalysts-fwd"></ul>
-        </figure>
-        <figure class="panel panel--wide reveal">
-          <figcaption class="panel__cap"><h3>Recent catalysts</h3><p>Momentum into 2026</p></figcaption>
-          <ol class="timeline" id="catalysts-past"></ol>
-        </figure>
+        <figure class="panel reveal"><figcaption class="panel__cap"><h3>Risk matrix</h3><p>Severity × probability</p></figcaption><div class="riskmatrix" id="risk-matrix"></div></figure>
+        <figure class="panel reveal" data-delay="1"><figcaption class="panel__cap"><h3>Monitoring checklist</h3><p>The numbers that flag trouble</p></figcaption><ul class="monitor" id="risk-monitor"></ul></figure>
       </div>
     </section>
 
-    <!-- ===================== Conclusion / methodology ===================== -->
-    <section id="methodology" class="section wrap" aria-labelledby="concl-title">
+    <!-- ===================== 13 Bottom line ===================== -->
+    <section id="bottom" class="section wrap" aria-labelledby="concl-title">
       <div class="sec-head reveal">
-        <p class="sec-head__meta"><span class="sec-head__n">09</span> Bottom line</p>
+        <p class="sec-head__meta"><span class="sec-head__n">13</span> Bottom line</p>
         <h2 id="concl-title" class="sec-head__title">A genuinely unique asset, priced for its risk.</h2>
       </div>
       <div class="prose conclusion reveal">
-        <p>First Phosphate is the only pure-play LFP-battery phosphate company on a North-American exchange, and at ~10% of PEA NAV it is the cheapest entry to the emerging Québec battery-materials cluster. A 33% IRR and 2.9-year payback are best-in-class among junior peers.</p>
+        <p>First Phosphate is the only pure-play LFP-battery phosphate company on a North-American exchange, and at ~10% of PEA NAV it is the cheapest entry to the emerging Québec battery-materials cluster. A 33% IRR and 2.9-year payback are best-in-class among junior peers, and the advisory bench — Prayon, Arianne, US critical-minerals policy — is unusually deep for the size.</p>
         <p>It is also an early-stage explorer: 83% Inferred resource, a C$675M+ unfunded capex gap, aggressive dilution, and a going-concern opinion. The path from PEA to production runs through drilling → pre-feasibility → feasibility → financing, each step carrying real execution risk. Whether the LFP thesis justifies the premium is the entire question — and recent catalysts suggest the market is starting to believe it.</p>
       </div>
-      <div class="method reveal">
-        <div class="method__sources">
-          <h3 class="method__h">Sources &amp; method</h3>
-          <ul id="method-sources" class="method__list"></ul>
+    </section>
+
+    <!-- ===================== Reference ===================== -->
+    <section id="reference" class="section section--tight wrap wrap--wide" aria-labelledby="ref-title">
+      <div class="sec-head reveal">
+        <p class="sec-head__meta"><span class="sec-head__n">A</span> Reference</p>
+        <h2 id="ref-title" class="sec-head__title">Glossary, sources &amp; method.</h2>
+      </div>
+      <div class="ref-grid">
+        <div class="reveal">
+          <h3 class="ref-h">Glossary</h3>
+          <dl class="glossary" id="glossary"></dl>
         </div>
-        <div class="method__actions">
-          <a class="btn btn--primary" href="/data/phos-financial-model.xlsx" download>Download the model <span class="arrow" aria-hidden="true">↓</span></a>
-          <a class="btn btn--ghost" href="https://github.com/squireaintready/phos-analysis" target="_blank" rel="noopener">Source on GitHub <span class="arrow" aria-hidden="true">↗</span></a>
+        <div class="reveal">
+          <h3 class="ref-h">Data vintage</h3>
+          <ul class="vintage" id="vintage-list"></ul>
+          <h3 class="ref-h" style="margin-top:1.4rem">Sources</h3>
+          <ul class="method__list" id="method-sources"></ul>
+          <div class="method__actions" style="margin-top:1.2rem">
+            <a class="btn btn--primary" href="/data/phos-financial-model.xlsx" download>Download the model <span class="arrow" aria-hidden="true">↓</span></a>
+            <a class="btn btn--ghost" href="https://github.com/squireaintready/phos-analysis" target="_blank" rel="noopener">Source on GitHub <span class="arrow" aria-hidden="true">↗</span></a>
+          </div>
         </div>
-        <p class="method__note">Every figure is extracted programmatically from the workbook at build time, so the page and the model never drift. The original research was assembled and verified against the source PDFs in Excel; this dashboard renders it as a static, dependency-free site.</p>
       </div>
     </section>
   </main>
@@ -369,8 +395,8 @@
   <footer class="site-footer">
     <div class="wrap wrap--wide footer-grid">
       <div>
-        <a class="brand" href="#top"><span class="brand__mark" aria-hidden="true"></span> PHOS&nbsp;Analysis</a>
-        <p class="footer-cred" style="margin-top:.6rem; max-width:42ch">An equity-research dashboard for First Phosphate Corp. (CSE: PHOS). Built and typeset by Samuel Jo.</p>
+        <a class="brand" href="#top"><span class="brand__mark" aria-hidden="true"></span> PHOS&nbsp;Research</a>
+        <p class="footer-cred" style="margin-top:.6rem; max-width:44ch">An independent equity-research report on First Phosphate Corp. (CSE: PHOS). Built and typeset by Samuel Jo.</p>
       </div>
       <nav class="cluster" style="--cluster-gap:1.2rem" aria-label="Footer">
         <a href="#thesis">Thesis</a><a href="#valuation">Valuation</a><a href="#risks">Risk</a>
@@ -379,7 +405,7 @@
       </nav>
     </div>
     <p class="wrap wrap--wide footer-disc">Research &amp; education only — <strong>not investment advice</strong>. Pre-revenue exploration companies carry extreme risk, including total loss of capital. All data from SEDAR+ filings and public sources; figures may contain errors. Do your own research.</p>
-    <p class="wrap wrap--wide footer-cred" style="margin-top:1.2rem; color:var(--text-mute)">© <span data-year>2026</span> Samuel Jo · Typeset in HTML &amp; CSS with <a href="https://github.com/chenglou/pretext" target="_blank" rel="noopener">Pretext</a>.</p>
+    <p class="wrap wrap--wide footer-cred" style="margin-top:1.2rem; color:var(--text-mute)">© <span data-year>2026</span> Samuel Jo · <a href="https://samjo.me/" target="_blank" rel="noopener">samjo.me</a></p>
   </footer>
 </body>
 </html>

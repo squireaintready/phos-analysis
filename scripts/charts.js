@@ -470,6 +470,59 @@ export function sensitivity(host, cfg) {
   };
 }
 
+/* ============================================ range bars (football field) */
+export function rangeBars(host, cfg) {
+  // cfg: { rows:[{label, low, high, mid, upside?}], domainMin, domainMax, ref?, valueFormat, label }
+  host.classList.add("chart");
+  host.setAttribute("role", "img");
+  if (cfg.label) host.setAttribute("aria-label", cfg.label);
+  const vFmt = cfg.valueFormat || ((v) => v.toFixed(2));
+
+  const draw = (W) => {
+    const p = palette(host);
+    const rows = cfg.rows;
+    const rowH = 30, gap = 16, padT = 8, padB = 26;
+    const H = padT + padB + rows.length * rowH + (rows.length - 1) * gap;
+    const labelW = Math.min(150, Math.max(96, Math.round(W * 0.3)));
+    const trackX = labelW + 12, trackW = W - trackX - 10;
+    const lo = cfg.domainMin, hi = cfg.domainMax;
+    const X = (v) => trackX + ((clamp(v, lo, hi) - lo) / (hi - lo)) * trackW;
+    const svg = el("svg", { viewBox: `0 0 ${W} ${H}`, width: W, height: H, class: "chart-svg" });
+
+    // x grid + axis labels
+    const tk = ticks(lo, hi, 4);
+    tk.forEach((t) => {
+      if (t < lo || t > hi) return;
+      svg.appendChild(el("line", { x1: X(t), x2: X(t), y1: padT, y2: H - padB, stroke: p.grid, "stroke-width": 1, "shape-rendering": "crispEdges", opacity: 0.5 }));
+      const tx = el("text", { x: X(t), y: H - padB + 16, "text-anchor": "middle", class: "chart-axis" }); tx.textContent = vFmt(t); tx.setAttribute("fill", p.mute); svg.appendChild(tx);
+    });
+    // reference line (e.g., current price)
+    if (cfg.ref != null) {
+      svg.appendChild(el("line", { x1: X(cfg.ref), x2: X(cfg.ref), y1: padT - 2, y2: H - padB, stroke: p.down, "stroke-width": 1.4, "stroke-dasharray": "4 4", opacity: 0.85 }));
+    }
+
+    rows.forEach((r, i) => {
+      const y = padT + i * (rowH + gap), cy = y + rowH / 2;
+      const color = r.upside ? p.up : p.brand;
+      const lab = el("text", { x: labelW, y: cy - 1, "text-anchor": "end", class: "chart-hlabel" }); lab.textContent = r.label; lab.setAttribute("fill", p.dim); svg.appendChild(lab);
+      // range bar
+      const x0 = X(r.low), x1 = X(r.high);
+      svg.appendChild(el("rect", { x: x0, y: cy - 8, width: Math.max(2, x1 - x0), height: 16, rx: 4, fill: color, opacity: r.upside ? 0.35 : 0.22, class: "chart-hbar" }));
+      svg.appendChild(el("rect", { x: x0, y: cy - 8, width: Math.max(2, x1 - x0), height: 16, rx: 4, fill: "none", stroke: color, "stroke-width": 1.2, opacity: 0.7 }));
+      // mid marker
+      if (r.mid != null) svg.appendChild(el("line", { x1: X(r.mid), x2: X(r.mid), y1: cy - 9, y2: cy + 9, stroke: color, "stroke-width": 2.4 }));
+      // value labels at ends
+      const lo2 = el("text", { x: x0 - 5, y: cy + 11, "text-anchor": "end", class: "chart-rangeval" }); lo2.textContent = vFmt(r.low); lo2.setAttribute("fill", p.mute);
+      const hi2 = el("text", { x: x1 + 5, y: cy + 11, "text-anchor": "start", class: "chart-rangeval" }); hi2.textContent = vFmt(r.high); hi2.setAttribute("fill", p.mute);
+      svg.appendChild(lo2); svg.appendChild(hi2);
+    });
+    host.querySelector(".chart-svg")?.remove();
+    host.appendChild(svg);
+    if (!reduced) svg.classList.add("is-enter-bars");
+  };
+  return mount(host, draw);
+}
+
 /* linear interpolation of y at x over sorted xs[] */
 function interp(xs, ys, x) {
   if (x <= xs[0]) return ys[0];

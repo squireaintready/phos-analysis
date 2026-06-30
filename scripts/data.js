@@ -668,6 +668,523 @@ export const DATA = {
       }
     ]
   },
+  "projectDetail": {
+    "summary": "Bégin-Lamarche is an igneous (anorthosite-hosted) phosphate project in the Saguenay–Lac-St-Jean region of Québec. Its 2024 PEA outlines a 23-year, 1 Mtpa concentrate operation feeding a downstream purified-phosphoric-acid and LFP-cathode strategy — the basis of the mine-to-battery thesis.",
+    "economics": [
+      {
+        "k": "After-tax NPV (8%)",
+        "v": "C$1,590M"
+      },
+      {
+        "k": "After-tax IRR",
+        "v": "33%"
+      },
+      {
+        "k": "Initial capex",
+        "v": "C$675M"
+      },
+      {
+        "k": "Payback",
+        "v": "2.9 years"
+      },
+      {
+        "k": "Mine life",
+        "v": "23 years"
+      },
+      {
+        "k": "Production",
+        "v": "1 Mtpa concentrate"
+      },
+      {
+        "k": "Operating cost",
+        "v": "US$144 / t conc."
+      },
+      {
+        "k": "Revenue at production",
+        "v": "~C$600M / yr"
+      },
+      {
+        "k": "Royalties",
+        "v": "None (100%-owned)"
+      },
+      {
+        "k": "Land position",
+        "v": "~1,500 km² claims"
+      }
+    ],
+    "resource": {
+      "total": 255.5,
+      "grade": "6.0–8.2% P₂O₅",
+      "split": [
+        {
+          "label": "Inferred",
+          "pct": 0.83,
+          "note": "speculative — needs FS"
+        },
+        {
+          "label": "Measured + Indicated",
+          "pct": 0.17,
+          "note": "higher confidence"
+        }
+      ]
+    },
+    "downstream": [
+      {
+        "step": "Mine & concentrator",
+        "detail": "Igneous phosphate → high-purity concentrate",
+        "capex": "C$675M",
+        "status": "PEA"
+      },
+      {
+        "step": "Purified phosphoric acid",
+        "detail": "Battery-grade PPA (low-contaminant)",
+        "capex": "C$240M",
+        "status": "Pre-FS"
+      },
+      {
+        "step": "pCAM / LFP cathode",
+        "detail": "First Saguenay cathode-active-material plant",
+        "capex": "C$90M",
+        "status": "FS complete"
+      },
+      {
+        "step": "LFP cells",
+        "detail": "Commercial-grade 18650 cells demonstrated (Jul 2025)",
+        "capex": "—",
+        "status": "Proven"
+      }
+    ]
+  },
+  "market": {
+    "lfpShareEV": 0.5,
+    "lfpShare2022": 0.37,
+    "chinaLfpPowder": 0.9,
+    "phosphatePrice": "~US$600 / t (DAP/MAP)",
+    "marketGrowth": {
+      "years": [
+        "2024",
+        "2027",
+        "2030",
+        "2032"
+      ],
+      "low": [
+        17,
+        30,
+        48,
+        64
+      ],
+      "high": [
+        17,
+        38,
+        62,
+        84
+      ],
+      "cagr": "17–19%"
+    },
+    "drivers": [
+      {
+        "k": "EV adoption",
+        "v": "LFP overtook NMC to ~50% of EV chemistry in 2024",
+        "note": "Cost & safety favour LFP for mass-market EVs."
+      },
+      {
+        "k": "Grid storage (ESS)",
+        "v": "ESS demand +50% YoY (J.P. Morgan)",
+        "note": "LFP dominates stationary storage."
+      },
+      {
+        "k": "Supply concentration",
+        "v": "China ~90% of LFP powder",
+        "note": "Western supply chains seek non-China phosphate."
+      },
+      {
+        "k": "Critical-mineral policy",
+        "v": "Phosphate listed US (Nov 2025) & Canada (Feb 2026)",
+        "note": "Unlocks tax credits & fast-track permitting."
+      }
+    ]
+  },
+  "supplyChain": {
+    "chain": [
+      "Phosphate rock",
+      "Concentrate",
+      "Purified phosphoric acid",
+      "pCAM",
+      "LFP cathode",
+      "LFP cell"
+    ],
+    "phosNode": 2,
+    "cluster": [
+      {
+        "ticker": "PHOS",
+        "input": "Phosphate",
+        "self": true
+      },
+      {
+        "ticker": "NMG",
+        "input": "Graphite (anode)"
+      },
+      {
+        "ticker": "PMET",
+        "input": "Lithium (cathode)"
+      }
+    ],
+    "insight": "Three of the four North-American LFP-input juniors are Québec-based (PHOS phosphate, NMG graphite, PMET lithium), creating a natural cluster for government support and logistics. PHOS has already produced commercial LFP 18650 cells using its own phosphate and NMG graphite — the only junior in the group to demonstrate the full mine-to-battery chain."
+  },
+  "capital": {
+    "sharesBasic": 151218841,
+    "sharesCurrent": 173267217,
+    "sharesFD": 192400000,
+    "omnibusReservedPct": 0.096,
+    "omnibusCapPct": 0.2,
+    "debt": "Debt-free (FT premium only)",
+    "financingMethod": "Flow-through + placements",
+    "ownership": [
+      {
+        "name": "John Passalacqua (CEO)",
+        "pct": 0.173
+      },
+      {
+        "name": "L. Zeifman (Chairman)",
+        "pct": 0.061
+      },
+      {
+        "name": "B. Kurtz (CFO)",
+        "pct": 0.054
+      },
+      {
+        "name": "P. Nicholson (Director)",
+        "pct": 0.028
+      },
+      {
+        "name": "Other insiders / float",
+        "pct": 0.684
+      }
+    ]
+  },
+  "financing": [
+    {
+      "date": "Mar 2026",
+      "item": "C$16.7M non-repayable federal contribution",
+      "type": "Non-dilutive",
+      "note": "Conditional; narrows the capex gap."
+    },
+    {
+      "date": "Feb 2026",
+      "item": "Critical-mineral designation (Canada)",
+      "type": "Tax credits",
+      "note": "30% CMETC + critical-mineral tax credits."
+    },
+    {
+      "date": "Dec 2025",
+      "item": "C$9.6M financing closed",
+      "type": "Equity",
+      "note": "Extended runway to mid-2027."
+    },
+    {
+      "date": "FY2026",
+      "item": "Flow-through share placements",
+      "type": "Equity (tax-advantaged)",
+      "note": "Primary funding method; drives dilution."
+    },
+    {
+      "date": "Future",
+      "item": "Project finance / JV for capex",
+      "type": "Debt / strategic",
+      "note": "Required to close the ~C$994M gap."
+    }
+  ],
+  "esg": [
+    {
+      "area": "Indigenous relations",
+      "rating": 5,
+      "detail": "President Armand MacKenzie helped draft the UN Declaration on the Rights of Indigenous Peoples; leading a partnership with the Pekuakamiulnuatsh First Nation for deep Indigenous financial participation."
+    },
+    {
+      "area": "Permitting jurisdiction",
+      "rating": 4,
+      "detail": "Québec is consistently ranked among the most mining-friendly jurisdictions; phosphate's critical-mineral status supports fast-tracking."
+    },
+    {
+      "area": "Resource ownership",
+      "rating": 5,
+      "detail": "100%-owned claims (~1,500 km²) with no royalties — clean title and full upside retention."
+    },
+    {
+      "area": "Community / local roots",
+      "rating": 4,
+      "detail": "SVP David Dufour brings 30+ years of Saguenay operating and community experience; local social licence is a strategic priority."
+    },
+    {
+      "area": "Governance independence",
+      "rating": 3,
+      "detail": "Only 2 of 5 directors are independent — below TSXV best practice; a key-man dependency on the CEO."
+    }
+  ],
+  "comps": {
+    "pnav": [
+      {
+        "ticker": "PHOS",
+        "v": 0.1,
+        "self": true
+      },
+      {
+        "ticker": "DAN",
+        "v": 0.025
+      },
+      {
+        "ticker": "LCE",
+        "v": 0.04
+      },
+      {
+        "ticker": "NMG",
+        "v": 0.34
+      },
+      {
+        "ticker": "PMET",
+        "v": 0.37
+      }
+    ],
+    "evResource": [
+      {
+        "ticker": "PHOS",
+        "v": 0.62,
+        "self": true
+      },
+      {
+        "ticker": "DAN",
+        "v": 0.09
+      }
+    ],
+    "footballField": [
+      {
+        "method": "PEA-NAV (bear–bull)",
+        "low": 0.28,
+        "high": 1.83,
+        "mid": 1.01,
+        "note": "3% → 20% of after-tax NPV"
+      },
+      {
+        "method": "Peer P/NAV re-rate",
+        "low": 0.92,
+        "high": 2.29,
+        "mid": 1.38,
+        "note": "to junior-peer 10–25% of NAV"
+      },
+      {
+        "method": "EV / resource (vs DAN)",
+        "low": 0.45,
+        "high": 1.38,
+        "mid": 0.92,
+        "note": "5–15% of NPV per tonne"
+      },
+      {
+        "method": "Upside (post-FS / FID)",
+        "low": 1.83,
+        "high": 3.21,
+        "mid": 2.52,
+        "note": "de-risked → construction",
+        "upside": true
+      }
+    ],
+    "fairValueLow": 0.28,
+    "fairValueHigh": 1.83
+  },
+  "roadmap": [
+    {
+      "phase": "PEA",
+      "when": "2024",
+      "done": true,
+      "detail": "NPV C$1.59B · IRR 33% established"
+    },
+    {
+      "phase": "30,000 m drill program",
+      "when": "2026",
+      "done": false,
+      "detail": "Upgrade Inferred → Indicated resource"
+    },
+    {
+      "phase": "Pre-Feasibility Study",
+      "when": "2026",
+      "done": false,
+      "detail": "First major de-risking"
+    },
+    {
+      "phase": "Feasibility Study",
+      "when": "2027",
+      "done": false,
+      "detail": "Bankable economics → project finance"
+    },
+    {
+      "phase": "Financing / FID",
+      "when": "2027–28",
+      "done": false,
+      "detail": "Debt · JV · strategic · equity"
+    },
+    {
+      "phase": "Construction",
+      "when": "2028",
+      "done": false,
+      "detail": "Mine + downstream build-out"
+    },
+    {
+      "phase": "First production",
+      "when": "~2029",
+      "done": false,
+      "detail": "Concentrate → revenue"
+    }
+  ],
+  "advisory": [
+    {
+      "name": "Yves Caprara",
+      "role": "Phosphoric-acid technology",
+      "stars": 5,
+      "note": "Former CEO of Prayon SA — Europe's largest food/technical phosphoric-acid producer. The single most relevant advisor to the PPA thesis."
+    },
+    {
+      "name": "Bernard Lapointe, PhD",
+      "role": "Québec phosphate",
+      "stars": 5,
+      "note": "Founded Arianne Phosphate (the only other significant Québec phosphate company); proved phosphate viability in Saguenay–Lac-St-Jean."
+    },
+    {
+      "name": "Gary Stanley",
+      "role": "US critical-minerals policy",
+      "stars": 5,
+      "note": "Former Director, Office of Critical Minerals & Metals, US Dept. of Commerce; lead author of the 2019 US Critical Minerals Strategy."
+    },
+    {
+      "name": "Mario Bouchard",
+      "role": "Québec government finance",
+      "stars": 5,
+      "note": "Former Assistant Deputy Minister for Strategic Industries — insider knowledge of provincial project financing, critical for the capex."
+    },
+    {
+      "name": "Dr. Peir Pufahl, P.Geo",
+      "role": "Phosphorite geology",
+      "stars": 4,
+      "note": "Queen's University professor; internationally recognised phosphorite expert partnered with PHOS on its mineralogy."
+    }
+  ],
+  "glossary": [
+    {
+      "t": "PEA",
+      "d": "Preliminary Economic Assessment — the earliest, least-certain economic study of a mining project."
+    },
+    {
+      "t": "PFS / FS",
+      "d": "Pre-Feasibility / Feasibility Study — progressively more rigorous, bankable studies."
+    },
+    {
+      "t": "NI 43-101",
+      "d": "Canadian standard for disclosing mineral resources/reserves; classes are Inferred, Indicated, Measured."
+    },
+    {
+      "t": "Inferred resource",
+      "d": "Lowest-confidence resource class — cannot be used in a feasibility study or reserves."
+    },
+    {
+      "t": "NAV / NPV",
+      "d": "Net asset value / net present value — the discounted value of a project's future cash flows."
+    },
+    {
+      "t": "IRR",
+      "d": "Internal rate of return — the discount rate at which a project's NPV is zero."
+    },
+    {
+      "t": "LFP",
+      "d": "Lithium iron phosphate — a low-cost, safe battery cathode chemistry (Li-Fe-PO₄)."
+    },
+    {
+      "t": "PPA",
+      "d": "Purified phosphoric acid — battery-grade input for cathode-active material."
+    },
+    {
+      "t": "pCAM / CAM",
+      "d": "(precursor) cathode-active material — the processed feed for battery cathodes."
+    },
+    {
+      "t": "Flow-through shares",
+      "d": "A Canadian tax-advantaged financing where exploration expenses pass through to investors."
+    },
+    {
+      "t": "CMETC",
+      "d": "Critical Mineral Exploration Tax Credit — a 30% Canadian credit for eligible critical-mineral work."
+    },
+    {
+      "t": "P₂O₅",
+      "d": "Phosphorus pentoxide — the standard measure of phosphate grade/content."
+    }
+  ],
+  "coverage": {
+    "assessment": "High-risk / high-reward — speculative",
+    "fairValueLow": 0.28,
+    "fairValueHigh": 1.83,
+    "staticPrice": 1.05,
+    "stats": [
+      {
+        "k": "Mkt cap",
+        "v": "C$158M"
+      },
+      {
+        "k": "Mkt cap / NAV",
+        "v": "~10%"
+      },
+      {
+        "k": "PEA NPV",
+        "v": "C$1.59B"
+      },
+      {
+        "k": "PEA IRR",
+        "v": "33%"
+      },
+      {
+        "k": "Cash runway",
+        "v": "~24 mo"
+      },
+      {
+        "k": "Stage",
+        "v": "PEA · pre-revenue"
+      }
+    ]
+  },
+  "monitoring": [
+    {
+      "metric": "Quarterly cash balance",
+      "current": "C$20.0M (Q3)",
+      "watch": "Below C$10M"
+    },
+    {
+      "metric": "Shares outstanding",
+      "current": "~173M",
+      "watch": "Above 200M"
+    },
+    {
+      "metric": "Mkt cap / NAV",
+      "current": "~10%",
+      "watch": ">15% rich · <5% distress"
+    },
+    {
+      "metric": "Resource classification",
+      "current": "83% Inferred",
+      "watch": "Upgrade → Indicated"
+    },
+    {
+      "metric": "LFP share of EV batteries",
+      "current": "~50%",
+      "watch": "Shift back to NMC"
+    },
+    {
+      "metric": "Phosphate price (DAP/MAP)",
+      "current": "~US$600/t",
+      "watch": "Rising = positive"
+    }
+  ],
+  "vintage": {
+    "filings": "SEDAR+ filings through Q3 FY2026 (Nov 30, 2025)",
+    "market": "Peer & market data as of March 2026",
+    "price": "Share price live (15-min delayed) when available; else C$1.05 (Mar 2026)"
+  },
   "sources": [
     "FY2024 & FY2025 audited annual financial statements (SEDAR+)",
     "Q1–Q3 FY2026 interim financial statements (SEDAR+)",
